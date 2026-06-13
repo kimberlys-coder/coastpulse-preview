@@ -1423,6 +1423,111 @@
     margin: 0 0 14px;
     text-align: center;
   }
+
+  /* ============================================================
+     V5 layout refresh — lighter, airier cards in the style of the
+     CoastPulse council mockup: smaller type, subtle borders/shadows,
+     no bold risk-color top bars, compact inline risk pills, and
+     surf/UV shown as simple label/value rows.
+     ============================================================ */
+  .sunny-beach-report.sunny-beach-report.sunny-beach-report {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* County cards — thin neutral border, subtle shadow, more breathing room */
+  .sunny-beach-report .sbr-county-card {
+    border-radius: 14px !important;
+    border: 1px solid rgba(0,0,0,0.08) !important;
+    border-top: 1px solid rgba(0,0,0,0.08) !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05) !important;
+    padding: 22px !important;
+    row-gap: 16px !important;
+  }
+  .sunny-beach-report.sunny-beach-report.sunny-beach-report .sbr-county-grid {
+    gap: 16px !important;
+    margin-bottom: 32px !important;
+  }
+  .sunny-beach-report.sunny-beach-report.sunny-beach-report .sbr-county-card .sbr-county-name {
+    font-size: 16px !important;
+    min-height: 0 !important;
+  }
+
+  /* Section headings — smaller, tighter accent bar, more margin below */
+  .sunny-beach-report.sunny-beach-report.sunny-beach-report .sbr-section-heading {
+    font-size: 20px !important;
+    letter-spacing: 0.01em !important;
+    margin-bottom: 16px !important;
+  }
+  .sunny-beach-report.sunny-beach-report.sunny-beach-report .sbr-section-heading::after {
+    height: 2px !important;
+    width: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+  }
+
+  /* Rip current risk — compact inline pill with a left-side label,
+     instead of a full-width block. */
+  .sunny-beach-report .sbr-risk-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+  }
+  .sunny-beach-report .sbr-risk-row::before {
+    content: "Rip current risk";
+    font-size: 13px;
+    color: #555;
+    font-weight: 500;
+  }
+  .sunny-beach-report .sbr-risk-badge {
+    padding: 5px 14px !important;
+    border-radius: 999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    width: auto !important;
+  }
+  .sunny-beach-report .sbr-risk-badge .sbr-label {
+    display: none !important;
+  }
+  .sunny-beach-report .sbr-risk-badge > div {
+    margin-top: 0 !important;
+  }
+  .sunny-beach-report .sbr-risk-badge strong {
+    font-size: 14px !important;
+  }
+
+  /* Surf height / UV index — simple label/value rows instead of boxed badges */
+  .sunny-beach-report.sunny-beach-report.sunny-beach-report .sbr-card-data {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .sunny-beach-report .sbr-surf-badge,
+  .sunny-beach-report .sbr-uv-badge {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    text-align: left !important;
+  }
+  .sunny-beach-report .sbr-surf-badge .sbr-label,
+  .sunny-beach-report .sbr-uv-badge .sbr-label {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    color: #555 !important;
+    margin-bottom: 0 !important;
+  }
+  .sunny-beach-report .sbr-surf-badge strong,
+  .sunny-beach-report .sbr-uv-badge strong {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+  }
 </style>
 
 </body>
