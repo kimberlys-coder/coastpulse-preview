@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoastPulse Beach Conditions Widget</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Nunito', Arial, sans-serif; background: #DFDCD3; min-height: 100vh; padding: 40px 20px; color: #333; }
+.page { max-width: 640px; margin: 0 auto; }
+h1 { font-family: 'Montserrat', Arial, sans-serif; font-size: 22px; font-weight: 700; color: #005F6B; margin-bottom: 6px; }
+.sub { font-size: 14px; color: #666; margin-bottom: 32px; }
+.preview-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin-bottom: 10px; }
+.embed-box { background: #fff; border-radius: 12px; padding: 18px 20px; margin-top: 28px; border: 0.5px solid rgba(0,0,0,0.08); }
+.embed-box h2 { font-family: 'Montserrat', Arial, sans-serif; font-size: 15px; font-weight: 600; color: #005F6B; margin-bottom: 8px; }
+.embed-box p { font-size: 13px; color: #555; margin-bottom: 12px; line-height: 1.6; }
+.embed-code { background: #f5f4f0; border-radius: 8px; padding: 12px 14px; font-family: monospace; font-size: 12px; color: #333; word-break: break-all; border: 0.5px solid rgba(0,0,0,0.08); }
+.note { font-size: 12px; color: #888; margin-top: 10px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>CoastPulse Conditions Widget</h1>
+  <p class="sub">A free, auto-updating beach conditions widget you can embed on your website. Data from NWS Wilmington &amp; NOAA, updated 5 times daily.</p>
+
+  <div class="preview-label">Widget preview</div>
+  <div class="w-wrap">
+  <div class="w-header">
+    <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="18" cy="18" r="11" fill="#FCDA04" stroke="#F59B06" stroke-width="1.5"/>
+  <!-- rays -->
+  <g stroke="#F59B06" stroke-width="2.2" stroke-linecap="round">
+    <line x1="18" y1="2" x2="18" y2="6"/>
+    <line x1="18" y1="30" x2="18" y2="34"/>
+    <line x1="2" y1="18" x2="6" y2="18"/>
+    <line x1="30" y1="18" x2="34" y2="18"/>
+    <line x1="6.1" y1="6.1" x2="8.9" y2="8.9"/>
+    <line x1="27.1" y1="27.1" x2="29.9" y2="29.9"/>
+    <line x1="29.9" y1="6.1" x2="27.1" y2="8.9"/>
+    <line x1="8.9" y1="27.1" x2="6.1" y2="29.9"/>
+  </g>
+  <!-- shades -->
+  <rect x="11" y="17" width="6" height="4" rx="2" fill="#222"/>
+  <rect x="19" y="17" width="6" height="4" rx="2" fill="#222"/>
+  <line x1="17" y1="19" x2="19" y2="19" stroke="#222" stroke-width="1.5"/>
+  <!-- smile -->
+  <path d="M13 23 Q18 27 23 23" fill="none" stroke="#F59B06" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+    <div class="w-brand">CoastPulse · Southeastern NC<span>SE North Carolina beaches</span></div>
+  </div>
+  <div class="w-body">
+    <div class="w-label">Rip current risk</div>
+    <div class="w-row"><span class="w-county">New Hanover</span><div class="w-badge badge-low"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="w-row"><span class="w-county">Pender</span><div class="w-badge badge-low"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="w-row"><span class="w-county">Brunswick</span><div class="w-badge badge-mod"><span class="bd">⚠️</span><span class="bl">Moderate risk</span></div></div>
+    <hr class="w-divider">
+    <div class="w-bet">🌟 Best bet: <strong>Ocean Isle Beach (Brunswick County)</strong></div>
+    <div class="w-updated">Updated: June 17, 2026 at 12:00 PM ET</div>
+  </div>
+  <a class="w-cta" href="https://coastpulse.net/" target="_blank">Full report, tides &amp; forecast →</a>
+</div>
+
+  <div class="embed-box">
+    <h2>How to embed on your website</h2>
+    <p>Copy and paste this code anywhere in your website's HTML:</p>
+    <div class="embed-code">&lt;iframe src=&quot;https://coastpulse.net/widget.html&quot; width=&quot;320&quot; height=&quot;260&quot; frameborder=&quot;0&quot; style=&quot;border-radius:12px;&quot;&gt;&lt;/iframe&gt;</div>
+    <p class="note">The widget automatically updates whenever the CoastPulse report refreshes (up to 5× daily). No account or API key needed — just paste and go.</p>
+    <p class="note">Widget reflects SE North Carolina beach conditions: New Hanover, Pender, and Brunswick counties. Data sourced from NOAA National Weather Service, Wilmington office.</p>
+  </div>
+</div>
+</body>
+</html>
