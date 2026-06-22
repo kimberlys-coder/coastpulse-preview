@@ -3,55 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunny 103.7 Beach Report Widget</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<title>Beach Conditions Widget</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Montserrat', Arial, sans-serif; background: transparent; }
 .w-wrap {
-  background: #f0f4ff;
-  border-radius: 12px;
+  background: #fff;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.10);
-  max-width: 320px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.13);
+  max-width: 300px;
   font-size: 13px;
 }
 .w-header {
-  background: #2F56B6;
-  padding: 10px 14px;
+  background: #1E3A8A;
+  padding: 14px 16px 12px;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.w-brand { color: #fff; font-weight: 700; font-size: 14px; line-height: 1.2; }
-.w-brand span { display: block; font-size: 10px; font-weight: 500; opacity: 0.8; color: #FCDA04; }
-.w-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
-.w-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #888; margin-bottom: 2px; }
-.w-row { display: flex; align-items: center; justify-content: space-between; }
-.w-county { color: #333; font-weight: 600; font-size: 12px; }
-.w-badge { display: inline-flex; align-items: stretch; border-radius: 20px; overflow: hidden; font-size: 11px; font-weight: 600; border: 1px solid #c0bdb5; white-space: nowrap; }
-.w-badge .bd { width: 24px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
-.w-badge .bl { padding: 3px 8px 3px 6px; display: flex; align-items: center; }
-.badge-low .bd { background: #018C6A; } .badge-low .bl { background: #d0f2e8; color: #003320; }
-.badge-mod .bd { background: #F5A623; } .badge-mod .bl { background: #fdefd6; color: #3d2200; }
-.badge-high .bd, .badge-high .bl { background: #C83A00; color: #fff; }
-.w-divider { border: none; border-top: 0.5px solid rgba(0,0,0,0.08); margin: 2px 0; }
-.w-bet { font-size: 12px; color: #444; }
-.w-bet strong { color: #2F56B6; }
-.w-updated { font-size: 10px; color: #999; }
+.w-brand-text { flex: 1; }
+.w-brand-name { color: #fff; font-weight: 800; font-size: 15px; line-height: 1; letter-spacing: 0.01em; }
+.w-brand-sub { color: #FCDA04; font-weight: 700; font-size: 9px; letter-spacing: 0.12em; margin-top: 3px; }
+.w-risk-banner {
+  background: #1A7A50;
+  color: #fff;
+  text-align: center;
+  padding: 9px 12px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+.w-risk-sub { font-size: 9px; font-weight: 600; opacity: 0.85; letter-spacing: 0.08em; text-transform: uppercase; }
+.w-stats {
+  display: flex;
+  border-bottom: 1px solid #F0F0F0;
+}
+.w-stat {
+  flex: 1;
+  text-align: center;
+  padding: 10px 8px;
+  border-right: 1px solid #F0F0F0;
+}
+.w-stat:last-child { border-right: none; }
+.w-stat-label { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin-bottom: 3px; }
+.w-stat-val { font-size: 18px; font-weight: 800; color: #1E3A8A; }
+.w-body { padding: 12px 14px; }
+.w-section-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 8px; }
+.w-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.w-row:last-child { margin-bottom: 0; }
+.w-county { color: #333; font-weight: 600; font-size: 13px; }
+.w-risk-pill {
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.w-divider { border: none; border-top: 1px solid #F0F0F0; margin: 10px 0; }
+.w-bet {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.w-bet-label { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #92400E; white-space: nowrap; }
+.w-bet-name { font-size: 13px; font-weight: 800; color: #1E3A8A; }
+.w-updated { font-size: 9px; color: #bbb; margin-top: 10px; }
 .w-cta {
   display: block;
-  background: #2F56B6;
+  background: #1E3A8A;
   color: #FCDA04;
   text-align: center;
-  padding: 8px;
-  font-size: 11px;
-  font-weight: 700;
+  padding: 11px 14px;
+  font-size: 10px;
+  font-weight: 800;
   text-decoration: none;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.w-cta:hover { opacity: 0.9; }
+.w-cta:hover { opacity: 0.88; }
 </style>
 </head>
 <body>
@@ -77,16 +115,23 @@ body { font-family: 'Montserrat', Arial, sans-serif; background: transparent; }
   <!-- smile -->
   <path d="M13 23 Q18 27 23 23" fill="none" stroke="#F59B06" stroke-width="1.5" stroke-linecap="round"/>
 </svg>
-    <div class="w-brand">Sunny 103.7 Beach Report<span>SE North Carolina beaches</span></div>
+    <div class="w-brand-text">
+      <div class="w-brand-name">Sunny 103.7</div>
+      <div class="w-brand-sub">BEACH REPORT</div>
+    </div>
   </div>
+  <div class="w-risk-banner">
+    RIP CURRENT RISK: LOW RISK
+    <div class="w-risk-sub">SE North Carolina · All Counties</div>
+  </div>
+  <div class="w-stats"><div class="w-stat"><div class="w-stat-label">SURF</div><div class="w-stat-val">1 foot</div></div></div>
   <div class="w-body">
-    <div class="w-label">Rip current risk</div>
-    <div class="w-row"><span class="w-county">New Hanover</span><div class="w-badge badge-low"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="w-row"><span class="w-county">Pender</span><div class="w-badge badge-low"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="w-row"><span class="w-county">Brunswick</span><div class="w-badge badge-low"><span class="bd">✅</span><span class="bl">Low risk</span></div></div>
-    <hr class="w-divider">
-    <div class="w-bet">🌟 Best bet: <strong>Holden Beach (Brunswick County)</strong></div>
-    <div class="w-updated">Updated: June 22, 2026 at 08:00 AM ET</div>
+    <div class="w-section-label">By county</div>
+    <div class="w-row"><span class="w-county">New Hanover</span><span class="w-risk-pill" style="background:#1A7A50">Low</span></div><div class="w-row"><span class="w-county">Pender</span><span class="w-risk-pill" style="background:#1A7A50">Low</span></div><div class="w-row"><span class="w-county">Brunswick</span><span class="w-risk-pill" style="background:#1A7A50">Low</span></div>
+    <div class="w-bet"><span class="w-bet-label">TODAY'S PICK</span><span class="w-bet-name">Holden Beach (Brunswick)</span></div>
+    <div class="w-updated">Updated June 22, 2026 at 08:00 AM ET</div>
   </div>
-  <a class="w-cta" href="https://sunny1037.com/sunny-beach-report/" target="_blank">Full report, tides &amp; forecast →</a>
+  <a class="w-cta" href="https://sunny1037.com/sunny-beach-report/" target="_blank">Full report, tides &amp; forecast &rarr;</a>
 </div>
 </body>
 </html>
