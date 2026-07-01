@@ -22,6 +22,16 @@ designed to scale to other coastal markets later.
 - **Body:** Nunito (Google Fonts)
 - Fallback: Arial / sans-serif
 
+## Logo
+
+- Primary concept: a rounded coastal wave/horizon with a small sun accent.
+- Use the black-and-white version as the master approval test before color.
+- Use the standalone mark for favicons, app icons, social avatars, hats,
+  stamps, embossing, and other small or one-color applications.
+- Keep the logo clear of extra weather icons, location names, shadows, and
+  decorative wave layers.
+- Files live in `assets/brand/`.
+
 ## Voice
 
 - Friendly, informative, beach-community feel — distinct from a radio

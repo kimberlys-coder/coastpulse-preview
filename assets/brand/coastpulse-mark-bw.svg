@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">CoastPulse symbol, black and white</title>
+  <desc id="desc">A compact sun and ocean wave symbol for small applications.</desc>
+  <rect width="180" height="180" rx="36" fill="#fff" />
+  <circle cx="132" cy="43" r="17" fill="#111" />
+  <path d="M25 96 C47 67 74 54 104 54 C134 54 154 69 171 92 L158 109 C143 92 126 82 105 82 C80 82 58 93 39 115 C31 124 18 120 16 109 C15 104 19 99 25 96 Z" fill="#111" />
+  <path d="M24 118 H82 C101 118 114 108 126 94 C133 86 147 89 150 100 C153 112 146 126 133 133 C118 143 97 144 77 138 C55 132 38 133 24 145 Z" fill="#111" />
+  <path d="M116 131 C133 131 147 125 159 113 C162 121 160 129 153 137 C143 149 126 153 104 149 C110 140 114 135 116 131 Z" fill="#111" />
+</svg>

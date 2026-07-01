@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" role="img" aria-labelledby="title desc">
+  <title id="title">CoastPulse logo, black and white</title>
+  <desc id="desc">A simple coastal wave symbol beside the CoastPulse wordmark.</desc>
+  <defs>
+    <style>
+      .ink { fill: #111; }
+      .type { font-family: Poppins, Montserrat, Avenir Next, Arial, sans-serif; font-weight: 700; letter-spacing: -1.5px; }
+    </style>
+  </defs>
+  <g transform="translate(28 30)">
+    <circle class="ink" cx="139" cy="34" r="16" />
+    <path class="ink" d="M10 98 C33 68 62 53 96 53 C130 53 153 69 174 94 L161 110 C143 91 124 81 99 81 C71 81 47 93 27 116 C20 124 7 119 4 108 C3 104 5 100 10 98 Z" />
+    <path class="ink" d="M18 116 H81 C100 116 114 106 126 92 C133 84 148 87 151 98 C154 110 147 124 134 132 C118 142 96 143 75 137 C52 130 33 131 18 143 Z" />
+    <path class="ink" d="M118 130 C134 130 148 124 160 112 C163 119 162 127 155 135 C145 147 127 152 105 148 C111 139 115 134 118 130 Z" />
+  </g>
+  <text class="ink type" x="230" y="113" font-size="72">CoastPulse</text>
+</svg>

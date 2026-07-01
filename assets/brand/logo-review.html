@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoastPulse Logo Review</title>
+  <style>
+    :root {
+      --ocean: #005F6B;
+      --surf: #1FA5B0;
+      --sand: #FAF7F2;
+      --ink: #1d2428;
+      --line: #d8d4ca;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--sand);
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+      line-height: 1.45;
+    }
+    main {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 48px;
+    }
+    h1, h2, p { margin: 0; }
+    h1 {
+      font-size: 28px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .intro {
+      max-width: 680px;
+      color: #4e565b;
+      margin-bottom: 28px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+    }
+    .panel.dark {
+      background: var(--ocean);
+      color: #fff;
+      border-color: var(--ocean);
+    }
+    .label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #687278;
+      margin-bottom: 16px;
+    }
+    .dark .label { color: rgba(255,255,255,.68); }
+    .logo-wide {
+      display: block;
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+    }
+    .tiny-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 24px;
+    }
+    .tiny-set {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tiny-set img {
+      display: block;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .size-16 { width: 16px; height: 16px; }
+    .size-24 { width: 24px; height: 24px; }
+    .size-32 { width: 32px; height: 32px; }
+    .size-64 { width: 64px; height: 64px; }
+    .embroidery {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 24px;
+      align-items: center;
+      margin-top: 18px;
+    }
+    .patch {
+      width: 160px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #f3efe4;
+      display: grid;
+      place-items: center;
+      border: 8px solid #111;
+    }
+    .patch img { width: 104px; height: 104px; }
+    ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: #4e565b;
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      .embroidery { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>CoastPulse Logo Review</h1>
+    <p class="intro">A vector-first direction built around a simple wave plus pulse trace. The black-and-white mark is the master test; color is applied only after the structure works.</p>
+
+    <section class="grid" aria-label="Primary logo variants">
+      <div class="panel">
+        <span class="label">Black and white master</span>
+        <img class="logo-wide" src="coastpulse-logo-bw.svg" alt="CoastPulse black and white logo">
+      </div>
+      <div class="panel">
+        <span class="label">Color version</span>
+        <img class="logo-wide" src="coastpulse-logo-color.svg" alt="CoastPulse color logo">
+      </div>
+      <div class="panel dark">
+        <span class="label">Reverse on dark</span>
+        <img class="logo-wide" src="coastpulse-logo-reverse.svg" alt="CoastPulse reverse logo">
+      </div>
+      <div class="panel">
+        <span class="label">Small-size tests</span>
+        <div class="tiny-row">
+          <div class="tiny-set">
+            <img class="size-16" src="coastpulse-mark-bw.svg" alt="">
+            <img class="size-24" src="coastpulse-mark-bw.svg" alt="">
+            <img class="size-32" src="coastpulse-mark-bw.svg" alt="">
+            <img class="size-64" src="coastpulse-mark-bw.svg" alt="">
+          </div>
+          <div class="tiny-set">
+            <img class="size-16" src="coastpulse-mark-color.svg" alt="">
+            <img class="size-24" src="coastpulse-mark-color.svg" alt="">
+            <img class="size-32" src="coastpulse-mark-color.svg" alt="">
+            <img class="size-64" src="coastpulse-mark-color.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="embroidery" aria-label="Physical application test">
+      <div class="patch">
+        <img src="coastpulse-mark-bw.svg" alt="CoastPulse mark on circular patch">
+      </div>
+      <div>
+        <h2>Physical Application Check</h2>
+        <ul>
+          <li>Use the one-color mark for hats, stamps, embossing, and simple screen printing.</li>
+          <li>Drop the gold dot for very small embroidery if it competes with thread weight.</li>
+          <li>Keep the wave and pulse strokes rounded; sharp joins make it feel more medical than coastal.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

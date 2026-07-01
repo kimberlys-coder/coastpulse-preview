@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CoastPulse — Rip Current Risk Badge Examples</title>
+<style>
+  :root {
+    --cp-ocean-floor: #005F6B;
+    --cp-surf-blue: #1FA5B0;
+    --cp-sand: #DFDCD3;
+    --cp-alert-amber: #E6A800;
+    --cp-text-hero: #001A22;
+    --cp-text-body: #333333;
+
+    --hazard-low: #018C6A;
+    --hazard-low-tint: #d0f2e8;
+    --hazard-low-text: #003320;
+
+    --hazard-moderate: #F5A623;
+    --hazard-moderate-tint: #fdefd6;
+    --hazard-moderate-text: #3d2200;
+
+    --hazard-high: #C83A00;
+
+    --badge-cap-width: 28px;
+    --badge-stroke: #c0bdb5;
+    --badge-radius: 20px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Nunito', Arial, sans-serif;
+    background-color: var(--cp-sand);
+    color: var(--cp-text-body);
+    padding: 24px 16px 60px;
+  }
+  h1 {
+    font-family: 'Poppins', Arial, sans-serif;
+    color: var(--cp-ocean-floor);
+    max-width: 520px;
+    margin: 0 auto 24px;
+    font-size: 22px;
+  }
+  .demo-wrap {
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .demo-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .demo-card .demo-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cp-ocean-floor);
+    margin: 0 0 10px;
+  }
+
+  /* Risk badge — mirrors .sbr-risk-badge markup + CoastPulse override CSS */
+  .sbr-risk-badge {
+    border-radius: var(--badge-radius);
+    padding: 10px 14px;
+    text-align: center;
+  }
+  .sbr-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .sbr-risk-row > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .sbr-risk-row strong {
+    font-size: 18px;
+  }
+  .icon { font-size: 16px; line-height: 1; }
+
+  .sbr-risk-badge.sbr-risk-LOW {
+    background: linear-gradient(to right, var(--hazard-low) var(--badge-cap-width), var(--hazard-low-tint) var(--badge-cap-width));
+    border: 1px solid var(--badge-stroke);
+    color: var(--hazard-low-text);
+  }
+  .sbr-risk-badge.sbr-risk-MODERATE {
+    background: linear-gradient(to right, var(--hazard-moderate) var(--badge-cap-width), var(--hazard-moderate-tint) var(--badge-cap-width));
+    border: 1px solid var(--badge-stroke);
+    color: var(--hazard-moderate-text);
+  }
+  .sbr-risk-badge.sbr-risk-HIGH {
+    background: var(--hazard-high);
+    border: 1px solid var(--badge-stroke);
+    color: #ffffff;
+  }
+  .sbr-risk-badge.sbr-risk-LOW .sbr-label,
+  .sbr-risk-badge.sbr-risk-LOW strong { color: var(--hazard-low-text); }
+  .sbr-risk-badge.sbr-risk-MODERATE .sbr-label,
+  .sbr-risk-badge.sbr-risk-MODERATE strong { color: var(--hazard-moderate-text); }
+  .sbr-risk-badge.sbr-risk-HIGH .sbr-label,
+  .sbr-risk-badge.sbr-risk-HIGH strong { color: #ffffff; }
+</style>
+</head>
+<body>
+<h1>CoastPulse — Rip Current Risk Badge Examples (V5 palette)</h1>
+<div class="demo-wrap">
+
+  <div class="demo-card">
+    <p class="demo-label">Low Risk</p>
+    <div class="sbr-risk-row">
+      <div class="sbr-risk-badge sbr-risk-LOW">
+        <span class="sbr-label">Rip Current Risk</span>
+        <div>
+          <span class="icon">✅</span>
+          <strong>Low</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-card">
+    <p class="demo-label">Moderate Risk</p>
+    <div class="sbr-risk-row">
+      <div class="sbr-risk-badge sbr-risk-MODERATE">
+        <span class="sbr-label">Rip Current Risk</span>
+        <div>
+          <span class="icon">⚠️</span>
+          <strong>Moderate</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-card">
+    <p class="demo-label">High Risk</p>
+    <div class="sbr-risk-row">
+      <div class="sbr-risk-badge sbr-risk-HIGH">
+        <span class="sbr-label">Rip Current Risk</span>
+        <div>
+          <span class="icon">🚨</span>
+          <strong>High</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

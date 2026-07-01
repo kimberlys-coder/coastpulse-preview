@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><meta name="theme-color" content="#005F6B"><title>Myrtle Beach &amp; Grand Strand Conditions — CoastPulse | Live Report</title><meta name="description" content="Real-time surf, tide, rip current risk, and beach conditions for Myrtle Beach, North Myrtle Beach, Pawleys Island, and the Grand Strand. Updated 5x daily from NWS Charleston."><link rel="canonical" href="https://coastpulse.net/myrtle-beach/"><meta property="og:type" content="website"><meta property="og:title" content="Myrtle Beach &amp; Grand Strand Conditions — CoastPulse | Live Report"><meta property="og:description" content="Real-time surf, tide, rip current risk, and beach conditions for Myrtle Beach, North Myrtle Beach, Pawleys Island, and the Grand Strand. Updated 5x daily from NWS Charleston."><meta property="og:url" content="https://coastpulse.net/myrtle-beach/"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Myrtle Beach &amp; Grand Strand Conditions — CoastPulse | Live Report"><meta name="twitter:description" content="Real-time surf, tide, rip current risk, and beach conditions for Myrtle Beach, North Myrtle Beach, Pawleys Island, and the Grand Strand. Updated 5x daily from NWS Charleston."><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://coastpulse.net/myrtle-beach/","url":"https://coastpulse.net/myrtle-beach/","name":"Grand Strand Beach Conditions","description":"Real-time surf, tide, rip current risk, and beach conditions for Myrtle Beach, North Myrtle Beach, Pawleys Island, and the Grand Strand. Updated 5x daily from NWS Charleston.","isPartOf":{"@id":"https://coastpulse.net/"}},{"@type":"Dataset","name":"Grand Strand Beach Conditions","description":"Real-time surf, tide, rip current risk, and beach conditions for Myrtle Beach, North Myrtle Beach, Pawleys Island, and the Grand Strand. Updated 5x daily from NWS Charleston.","url":"https://coastpulse.net/myrtle-beach/","creator":{"@type":"Organization","name":"CoastPulse","url":"https://coastpulse.net"},"provider":{"@type":"Organization","name":"NOAA / NWS Charleston","url":"https://weather.gov/chs"},"updateFrequency":"5 times daily","spatialCoverage":{"@type":"Place","name":"Grand Strand, South Carolina","geo":{"@type":"GeoShape","description":"Horry and Georgetown Counties, SC"}}}]}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"><style>
+:root {
+  --cp-ocean-floor:#005F6B;
+  --cp-surf-blue:#1FA5B0;
+  --cp-sand:#DFDCD3;
+  --cp-alert-amber:#E6A800;
+  --cp-text-hero:#001A22;
+  --cp-text-amber:#3d2200;
+  --cp-text-body:#333333;
+  --hazard-low:#018C6A;
+  --hazard-low-tint:#d0f2e8;
+  --hazard-low-text:#003320;
+  --hazard-moderate:#F5A623;
+  --hazard-moderate-tint:#fdefd6;
+  --hazard-moderate-text:#3d2200;
+  --hazard-high:#C83A00;
+  --hazard-closed:#8C0003;
+  --hazard-marine:#7A368F;
+  --hazard-marine-tint:#ede0f3;
+  --hazard-marine-text:#4a1f5e;
+  --badge-cap-width:28px;
+  --badge-stroke:#c0bdb5;
+  --badge-radius:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Nunito',Arial,sans-serif;background-color:var(--cp-sand);color:var(--cp-text-body);-webkit-text-size-adjust:100%}
+a{color:var(--cp-surf-blue)}
+a:hover{color:var(--hazard-marine)}
+
+/* ── Nav ── */
+.cp-nav{background:var(--cp-ocean-floor);color:#fff;padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.cp-nav-brand{font-family:'Poppins',Arial,sans-serif;font-size:18px;font-weight:700;letter-spacing:-0.3px;color:#fff;text-decoration:none}
+.cp-nav-brand span{color:var(--cp-surf-blue)}
+.cp-nav-links{display:flex;gap:4px;font-size:13px;flex-wrap:wrap;align-items:center}
+.cp-nav-links a{color:rgba(255,255,255,0.80);text-decoration:none;padding:4px 7px;border-radius:6px}
+.cp-nav-links a:hover{color:#fff;background:rgba(255,255,255,0.10)}
+.cp-nav-links a.cp-nav-active{color:#fff;font-weight:700}
+.cp-nav-sep{color:rgba(255,255,255,0.25);padding:0 4px;font-size:11px;user-select:none}
+
+/* ── Alert banner ── */
+.cp-alert-banner{background:var(--cp-alert-amber);color:var(--cp-text-amber);padding:10px 20px;display:flex;align-items:flex-start;gap:12px}
+.cp-alert-banner.cp-alert-stale{background:var(--hazard-moderate-tint);color:var(--hazard-moderate-text);border-bottom:1px solid var(--hazard-moderate)}
+.cp-alert-banner.cp-alert-closure{background:var(--hazard-closed);color:#fff}
+.cp-alert-banner.cp-alert-marine{background:var(--hazard-marine-tint);color:var(--hazard-marine-text)}
+.cp-alert-icon{font-size:18px;line-height:1.3;flex-shrink:0}
+.cp-alert-content{flex:1;min-width:0}
+.cp-alert-eyebrow{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.75;margin-bottom:2px}
+.cp-alert-main{font-size:13px;font-weight:600}
+.cp-alert-caveat{font-size:12px;margin-top:3px;opacity:.8}
+.cp-alert-tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,0.15);padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+
+/* ── Hero ── */
+.cp-hero{background:var(--cp-surf-blue);color:var(--cp-text-hero);padding:28px 20px 20px}
+.cp-hero-eyebrow,.cp-hero-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin-bottom:5px}
+.cp-hero h1{font-family:'Poppins',Arial,sans-serif;font-size:24px;font-weight:600;line-height:1.2;margin:0 0 5px}
+.cp-hero-sub,.cp-hero-date{font-size:13px;opacity:.8;margin-bottom:8px}
+.cp-hero-intro{font-size:14px;margin-bottom:8px;line-height:1.5;font-weight:600}
+.cp-hero-sun{font-size:12px;opacity:.8;margin-bottom:10px}
+.cp-county-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.cp-tab{background:rgba(0,26,34,0.15);color:var(--cp-text-hero);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;text-decoration:none;display:inline-block}
+.cp-tab:hover{background:rgba(0,26,34,0.30);color:var(--cp-text-hero)}
+
+/* ── Body / cards ── */
+.cp-body{padding:16px 20px 4px;display:flex;flex-direction:column;gap:14px;max-width:1078px;margin:0 auto;width:100%}
+.cp-card{background:#fff;border-radius:12px;overflow:hidden;border:.5px solid rgba(0,0,0,0.08)}
+.cp-card-header{padding:12px 16px 10px;border-bottom:.5px solid rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.cp-card-title{font-family:'Poppins',Arial,sans-serif;font-size:15px;font-weight:600;color:var(--cp-ocean-floor)}
+.cp-card-updated{font-size:11px;color:#888}
+.cp-card-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.cp-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;gap:12px}
+.cp-label{color:#555;flex-shrink:0}
+.cp-value{font-weight:700;color:#222;text-align:right}
+.cp-note{font-size:12px;color:#666;line-height:1.55;border-top:.5px solid rgba(0,0,0,.06);padding-top:10px;margin-top:2px}
+
+/* ── Badges ── */
+.cp-badge{display:inline-flex;align-items:stretch;border-radius:var(--badge-radius);overflow:hidden;font-size:12px;font-weight:600;border:1px solid var(--badge-stroke);white-space:nowrap}
+.cp-badge .bd{width:var(--badge-cap-width);display:flex;align-items:center;justify-content:center;font-size:13px}
+.cp-badge .bl{padding:4px 10px 4px 8px;display:flex;align-items:center}
+.badge-low .bd{background:var(--hazard-low)}
+.badge-low .bl{background:var(--hazard-low-tint);color:var(--hazard-low-text)}
+.badge-mod .bd{background:var(--hazard-moderate)}
+.badge-mod .bl{background:var(--hazard-moderate-tint);color:var(--hazard-moderate-text)}
+.badge-high{border-color:var(--hazard-high)}
+.badge-high .bd,.badge-high .bl{background:var(--hazard-high);color:#fff}
+.badge-closed{border-color:var(--hazard-closed)}
+.badge-closed .bd,.badge-closed .bl{background:var(--hazard-closed);color:#fff}
+.badge-marine .bd{background:var(--hazard-marine);color:#fff}
+.badge-marine .bl{background:var(--hazard-marine-tint);color:var(--hazard-marine-text)}
+
+/* ── Surf verdict inline badge ── */
+.cp-surf-verdict{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.surf-calm,.surf-mild{background:var(--hazard-low-tint);color:var(--hazard-low-text)}
+.surf-mod{background:var(--hazard-moderate-tint);color:var(--hazard-moderate-text)}
+.surf-rough{background:#fce8e8;color:#6b0000}
+
+/* ── Nearby chips ── */
+.cp-nearby-row{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;font-size:13px;padding-top:6px}
+.cp-nearby-chips{display:flex;flex-wrap:wrap;gap:5px;flex:1}
+.cp-nearby-chip{background:#f5f4f0;border:.5px solid rgba(0,0,0,.08);border-radius:12px;padding:3px 10px;font-size:11px;font-weight:600;color:#444;white-space:nowrap}
+.cp-nearby-mi{font-weight:400;color:#888}
+
+/* ── Hourly forecast scroll ── */
+.cp-hourly-scroll{display:flex;gap:0;overflow-x:auto;padding:10px 4px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cp-hourly-scroll::-webkit-scrollbar{display:none}
+.cp-hourly-slot{flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px;border-radius:8px;text-align:center}
+.cp-hourly-slot:hover{background:#f5f4f0}
+.cp-hourly-time{font-size:11px;font-weight:700;color:#555}
+.cp-hourly-icon{font-size:20px;line-height:1.1}
+.cp-hourly-temp{font-size:13px;font-weight:700;color:#222}
+.cp-hourly-rain{font-size:10px;font-weight:600}
+
+/* ── Tide live indicator ── */
+.cp-tide-live{display:flex;align-items:center;gap:10px;background:#f0faf8;border-bottom:.5px solid rgba(1,140,106,0.2);padding:10px 16px;font-size:13px}
+.cp-tide-live-label{color:#555;flex:1}
+.cp-tide-live-value{font-weight:700;color:var(--hazard-low);font-size:15px}
+.cp-tide-live-dir{font-size:12px;color:var(--hazard-low);font-weight:600}
+
+/* ── Section label ── */
+.cp-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#888;padding:0 0 4px}
+
+/* ── Forecast ── */
+.cp-forecast{display:flex;gap:8px;padding:14px;flex-wrap:wrap}
+.cp-fc-day{flex:1;min-width:110px;background:#f5f4f0;border-radius:8px;padding:10px 8px;text-align:center;border:.5px solid rgba(0,0,0,.06)}
+.cp-fc-label{font-size:11px;color:#666;margin-bottom:4px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.cp-fc-icon{font-size:22px;margin:4px 0}
+.cp-fc-temp{font-size:13px;font-weight:700;color:#222}
+.cp-fc-cond{font-size:11px;color:#555;margin-top:2px}
+.cp-fc-detail{font-size:10px;color:#888;margin-top:4px;line-height:1.4}
+
+/* ── Beach day tips ── */
+.cp-tips-list{list-style:none;padding:12px 16px 14px;display:flex;flex-direction:column;gap:10px}
+.cp-tip-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.55}
+.cp-tip-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.cp-tip-text{color:#444;flex:1}
+
+/* ── Dogs at the Beach ── */
+.cp-dog-list{display:flex;flex-direction:column}
+.cp-dog-item{padding:12px 16px;border-bottom:.5px solid rgba(0,0,0,.06)}
+.cp-dog-item:last-of-type{border-bottom:none}
+.cp-dog-header{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.cp-dog-emoji{font-size:16px}
+.cp-dog-beach{font-weight:700;font-size:13px;color:var(--cp-ocean-floor)}
+.cp-dog-hours{font-size:12px;color:#555;margin-bottom:3px;line-height:1.4}
+.cp-dog-rules{font-size:11px;color:#888;line-height:1.4}
+
+/* ── Wildlife ── */
+.cp-wildlife{display:flex;flex-direction:column;gap:10px;padding:14px 16px}
+.cp-wildlife-item{display:flex;align-items:center;gap:10px;font-size:12px}
+.cp-wildlife-emoji{font-size:18px;flex-shrink:0}
+.cp-wildlife-name{font-weight:700;color:var(--cp-ocean-floor)}
+.cp-wildlife-species{color:#555}
+.cp-wildlife-meta{color:#999;margin-left:auto;text-align:right;flex-shrink:0}
+
+/* ── Badge gallery ── */
+.cp-badge-gallery{display:flex;flex-direction:column;gap:10px;padding:14px 16px}
+.cp-badge-row{display:flex;align-items:center;gap:12px}
+.cp-badge-desc{font-size:12px;color:#666;flex:1}
+
+/* ── Footer ── */
+.cp-footer{background:var(--cp-ocean-floor);color:rgba(255,255,255,.75);padding:18px 20px 28px;font-size:12px;line-height:1.6;margin-top:4px}
+.cp-footer-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;max-width:1078px;margin:0 auto}
+.cp-footer a{color:rgba(255,255,255,.85)}
+.cp-footer strong{color:#fff;font-family:'Poppins',Arial,sans-serif}
+.cp-footer-regions{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+
+/* ── Hub page ── */
+.cp-hub-hero{background:var(--cp-surf-blue);color:var(--cp-text-hero);padding:32px 20px 24px;text-align:center}
+.cp-hub-hero h1{font-family:'Poppins',Arial,sans-serif;font-size:26px;font-weight:700;margin-bottom:6px}
+.cp-hub-hero p{font-size:14px;opacity:.8}
+.cp-hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;padding:20px;max-width:1078px;margin:0 auto}
+.cp-hub-card{background:#fff;border-radius:12px;overflow:hidden;border:.5px solid rgba(0,0,0,0.08)}
+.cp-hub-card-header{background:var(--cp-ocean-floor);color:#fff;padding:14px 16px 12px}
+.cp-hub-card-title{font-family:'Poppins',Arial,sans-serif;font-size:17px;font-weight:700}
+.cp-hub-card-sub{font-size:11px;opacity:.7;margin-top:3px}
+.cp-hub-card-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.cp-hub-risks{display:flex;flex-direction:column;gap:6px}
+.cp-hub-risk-row{display:flex;align-items:center;justify-content:space-between;font-size:12px}
+.cp-hub-county{color:#555;font-weight:600}
+.cp-hub-bet{font-size:12px;color:#444;border-top:.5px solid rgba(0,0,0,.06);padding-top:9px}
+.cp-hub-bet strong{color:var(--cp-ocean-floor)}
+.cp-hub-updated{font-size:10px;color:#aaa;margin-top:2px}
+.cp-hub-cta{display:block;background:var(--cp-surf-blue);color:#fff;text-align:center;padding:10px;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:.04em;text-transform:uppercase}
+.cp-hub-cta:hover{background:var(--cp-ocean-floor);color:#fff}
+.cp-hub-coming{background:#f5f4f0;border:.5px dashed rgba(0,0,0,.12);border-radius:12px;padding:20px;text-align:center;color:#aaa;font-size:13px}
+
+/* ── Mobile ── */
+@media(max-width:540px){
+  .cp-nav{padding:0 14px;height:50px}
+  .cp-nav-links{gap:2px;font-size:12px}
+  .cp-nav-links a{padding:3px 5px}
+  .cp-hero{padding:20px 14px 16px}
+  .cp-hero h1{font-size:20px}
+  .cp-body{padding:12px 12px 4px;gap:10px}
+  .cp-fc-day{min-width:90px}
+  .cp-hub-grid{grid-template-columns:1fr;padding:12px}
+}
+</style></head><body>
+<div class="cp-page">
+<div class="cp-nav"><a class="cp-nav-brand" href="https://coastpulse.net/" aria-label="CoastPulse home">Coast<span>Pulse</span></a><div class="cp-nav-links"><a href="https://coastpulse.net/southeastern-nc/" class="">SE NC</a><a href="https://coastpulse.net/myrtle-beach/" class="cp-nav-active">Myrtle Beach</a><span class="cp-nav-sep">|</span><a href="#cp-tides">Tides</a><a href="#cp-dogs">Dogs</a><a href="#cp-guide">Guide</a></div></div>
+<div class="cp-hero"><div class="cp-hero-eyebrow">Tomorrow&#x27;s Grand Strand outlook</div><h1>Friday — Myrtle Beach Report</h1><div class="cp-hero-date">June 19, 2026</div><div class="cp-hero-intro">Tomorrow&#x27;s your day if you want sunshine and calm waters on the Grand Strand, with just a light rain chance hanging around.</div><div class="cp-hero-sun">🌅 6:04 AM · 🌇 8:30 PM</div><div class="cp-county-tabs"><a class="cp-tab" href="#cp-county-0">Horry</a><a class="cp-tab" href="#cp-county-1">Georgetown</a></div></div>
+<div class="cp-body" id="cp-conditions">
+<div class="cp-card" id="cp-county-0"><div class="cp-card-header"><span class="cp-card-title">🏖️ Horry County</span><span class="cp-card-updated">Myrtle Beach · North Myrtle Beach · Surfside Beach · Garden City</span></div><div class="cp-card-body"><div class="cp-row"><span class="cp-label">Rip current risk</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="cp-row"><span class="cp-label">Surf height</span><span class="cp-value">~2 ft <span class="cp-surf-verdict surf-mild">Mild</span></span></div><div class="cp-row"><span class="cp-label">Water temp</span><span class="cp-value">79.3°F</span></div><div class="cp-row"><span class="cp-label">Wind</span><span class="cp-value">South winds 5 to 10 mph</span></div><div class="cp-note">Mostly sunny skies and low rip current risk make tomorrow perfect for families and swimmers who want predictable conditions from sunrise at 6:04 AM onward.</div><div class="cp-nearby-row"><span class="cp-label">Nearby beaches</span><div class="cp-nearby-chips"><span class="cp-nearby-chip">Myrtle Beach</span><span class="cp-nearby-chip">North Myrtle Beach<span class="cp-nearby-mi"> 11 mi</span></span><span class="cp-nearby-chip">Surfside Beach<span class="cp-nearby-mi"> 5 mi</span></span><span class="cp-nearby-chip">Garden City Beach<span class="cp-nearby-mi"> 6 mi</span></span><span class="cp-nearby-chip">Murrells Inlet<span class="cp-nearby-mi"> 10 mi</span></span></div></div></div></div>
+<div class="cp-card" id="cp-county-1"><div class="cp-card-header"><span class="cp-card-title">🏖️ Georgetown County</span><span class="cp-card-updated">Pawleys Island · Litchfield Beach · Huntington Beach State Park</span></div><div class="cp-card-body"><div class="cp-row"><span class="cp-label">Rip current risk</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="cp-row"><span class="cp-label">Surf height</span><span class="cp-value">1–2 ft <span class="cp-surf-verdict surf-mild">Mild</span></span></div><div class="cp-row"><span class="cp-label">Water temp</span><span class="cp-value">79.3°F</span></div><div class="cp-row"><span class="cp-label">Wind</span><span class="cp-value">South winds 5 to 10 mph</span></div><div class="cp-note">Georgetown's northeast wind and 34% rain chance means you're looking at slightly higher odds of a brief shower, but calm seas and low rip risk still make it a solid beach day.</div><div class="cp-nearby-row"><span class="cp-label">Nearby beaches</span><div class="cp-nearby-chips"><span class="cp-nearby-chip">Pawleys Island</span><span class="cp-nearby-chip">Litchfield Beach<span class="cp-nearby-mi"> 2 mi</span></span><span class="cp-nearby-chip">Huntington Beach SP<span class="cp-nearby-mi"> 4 mi</span></span><span class="cp-nearby-chip">DeBordieu Colony<span class="cp-nearby-mi"> 8 mi</span></span></div></div></div></div>
+<div class="cp-card"><div class="cp-card-header"><span class="cp-card-title">🌟 Best Beach Bet</span></div><div class="cp-card-body"><div class="cp-row"><span class="cp-label">Top pick today</span><span class="cp-value">Horry County</span></div><div class="cp-note">Lower rain chance at 26%, slightly warmer high of 84 degrees, and those gentle east winds make for the smoothest beach setup on the Grand Strand tomorrow.</div></div></div>
+<div class="cp-card"><div class="cp-card-header"><span class="cp-card-title">📋 Beach Day Outlook</span></div><div class="cp-card-body"><div class="cp-note" style="border-top:none;padding-top:0;">Tomorrow (Saturday) is your golden ticket if you&#x27;re thinking about hitting the Grand Strand. Mostly sunny conditions, 84-degree air, and 79-degree water mean you&#x27;ll want to get out there early and stay through the afternoon. Rain chances are low (26 to 34%), surf is manageable at around 2 feet, and winds are staying light out of the east. Sunday looks even better with highs near 84 and mostly sunny skies, so if you can&#x27;t make it tomorrow, the weekend is still solid.</div></div></div>
+<div class="cp-card" id="cp-tides"><div class="cp-card-header"><span class="cp-card-title">🌊 Tides &amp; Daylight</span><span class="cp-card-updated">Springmaid Pier · Myrtle Beach</span></div><div class="cp-card-body"><div class="cp-row"><span class="cp-label">🏖️ Low tide</span><span class="cp-value">5:53 AM · -0.3 ft</span></div><div class="cp-row"><span class="cp-label">🌊 High tide</span><span class="cp-value">12:02 PM · 5.0 ft</span></div><div class="cp-row"><span class="cp-label">🏖️ Low tide</span><span class="cp-value">5:58 PM · -0.0 ft</span></div><div class="cp-row"><span class="cp-label">🌅 Sunrise</span><span class="cp-value">6:04 AM</span></div><div class="cp-row"><span class="cp-label">🌇 Sunset</span><span class="cp-value">8:30 PM</span></div></div></div>
+<div class="cp-card"><div class="cp-card-header"><span class="cp-card-title">🐚 Shelling &amp; Golden Hour</span></div><div class="cp-card-body"><div class="cp-row"><span class="cp-label">🐚 Shelling conditions</span><span class="cp-value">Excellent</span></div><div class="cp-note">Low tide at 5:58 PM (-0.0 ft) — prime shelling window.</div><div class="cp-row"><span class="cp-label">📷 Evening golden hour</span><span class="cp-value">7:30 PM – 8:30 PM</span></div></div></div>
+<div><div class="cp-section-label">3-Day Forecast</div><div class="cp-card"><div class="cp-forecast"><div class="cp-fc-day"><div class="cp-fc-label">Sat, Jun 20</div><div class="cp-fc-icon">☀️</div><div class="cp-fc-temp">84° / 74°</div><div class="cp-fc-cond">Mostly Sunny</div><div class="cp-fc-detail">Surf: ~2 ft · Rip: LOW · 5 to 8 mph E</div></div><div class="cp-fc-day"><div class="cp-fc-label">Sun, Jun 21</div><div class="cp-fc-icon">☀️</div><div class="cp-fc-temp">84° / 78°</div><div class="cp-fc-cond">Mostly Sunny</div><div class="cp-fc-detail">2 to 10 mph S</div></div><div class="cp-fc-day"><div class="cp-fc-label">Mon, Jun 22</div><div class="cp-fc-icon">⛈️</div><div class="cp-fc-temp">85° / 80°</div><div class="cp-fc-cond">Mostly Sunny then Slight Chance Showers And Thunderstorms</div><div class="cp-fc-detail">8 to 15 mph S</div></div></div></div></div>
+<div class="cp-card"><div class="cp-card-header"><span class="cp-card-title">🦈 Who's Out There?</span><span class="cp-card-updated">OCEARCH tracker</span></div><div class="cp-wildlife"><a class="cp-wildlife-item" href="https://www.ocearch.org/tracker/?name=breton" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;"><span class="cp-wildlife-emoji">🦈</span><span class="cp-wildlife-name">Breton</span><span class="cp-wildlife-species">White Shark</span><span class="cp-wildlife-meta">105 mi SE · 17 days ago</span></a><a class="cp-wildlife-item" href="https://www.ocearch.org/tracker/?name=ocracoke" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;"><span class="cp-wildlife-emoji">🦈</span><span class="cp-wildlife-name">Ocracoke</span><span class="cp-wildlife-species">White Shark</span><span class="cp-wildlife-meta">177 mi E · 17 days ago</span></a></div></div>
+<div class="cp-card" id="cp-dogs"><div class="cp-card-header"><span class="cp-card-title">🐾 Dogs at the Beach</span><span class="cp-card-updated">Local ordinances · verify before you go</span></div><div class="cp-dog-list"><div class="cp-dog-item"><div class="cp-dog-header"><span class="cp-dog-emoji">⚠️</span><span class="cp-dog-beach">Myrtle Beach (City)</span></div><div class="cp-dog-hours">Restricted area — dogs generally NOT allowed on the main beach strand May–Sep. Designated pet-friendly areas available off the main beach.</div><div class="cp-dog-rules">Leash required in all public areas. $1,087 fine for violations in the restricted zone. Check current ordinances before visiting.</div></div><div class="cp-dog-item"><div class="cp-dog-header"><span class="cp-dog-emoji">✅</span><span class="cp-dog-beach">North Myrtle Beach</span></div><div class="cp-dog-hours">Before 9 AM and after 6 PM (Memorial Day – Labor Day); all day rest of year</div><div class="cp-dog-rules">Leash required. Waste cleanup required. Confirm current rules with the city before visiting.</div></div><div class="cp-dog-item"><div class="cp-dog-header"><span class="cp-dog-emoji">🚫</span><span class="cp-dog-beach">Surfside Beach</span></div><div class="cp-dog-hours">NOT allowed on the beach May 15 – Sep 15. Allowed rest of year.</div><div class="cp-dog-rules">Strict enforcement during summer season. Leash required year-round when allowed.</div></div><div class="cp-dog-item"><div class="cp-dog-header"><span class="cp-dog-emoji">✅</span><span class="cp-dog-beach">Pawleys Island</span></div><div class="cp-dog-hours">Allowed year-round — no seasonal restrictions</div><div class="cp-dog-rules">Leash required at all times. Stay off protected dune vegetation. Waste cleanup required.</div></div><div class="cp-dog-item"><div class="cp-dog-header"><span class="cp-dog-emoji">✅</span><span class="cp-dog-beach">Huntington Beach State Park</span></div><div class="cp-dog-hours">Allowed on beach and in campground year-round</div><div class="cp-dog-rules">Leash required (6-ft max). Proof of current rabies vaccination required. Entry fee applies.</div></div><div class="cp-dog-item"><div class="cp-dog-header"><span class="cp-dog-emoji">✅</span><span class="cp-dog-beach">Litchfield Beach</span></div><div class="cp-dog-hours">Allowed year-round — no seasonal restrictions on public beach access</div><div class="cp-dog-rules">Leash required. Keep pets off dunes and sea oats.</div></div><div class="cp-note" style="margin:12px 16px 14px;border-top:.5px solid rgba(0,0,0,.06);padding-top:10px;">Rules are subject to change. Always verify current ordinances with the town or city before visiting. Enforcement is often strict during summer season on the Grand Strand.</div></div></div>
+<div class="cp-card" id="cp-guide"><div class="cp-card-header"><span class="cp-card-title">Rip Current &amp; Hazard Scale</span></div><div class="cp-badge-gallery"><div class="cp-badge-row"><div class="cp-badge badge-low"><span class="bd">✅</span><span class="bl">Low risk</span></div><span class="cp-badge-desc">Safe for most swimmers near a lifeguard</span></div><div class="cp-badge-row"><div class="cp-badge badge-mod"><span class="bd">⚠️</span><span class="bl">Moderate risk</span></div><span class="cp-badge-desc">Weak swimmers should stay out; others use caution</span></div><div class="cp-badge-row"><div class="cp-badge badge-high"><span class="bd">🚨</span><span class="bl">High risk</span></div><span class="cp-badge-desc">Only strong swimmers — rip currents likely</span></div><div class="cp-badge-row"><div class="cp-badge badge-closed"><span class="bd">🚫</span><span class="bl">Closure advisory</span></div><span class="cp-badge-desc">Beach closed — no swimming</span></div><div class="cp-badge-row"><div class="cp-badge badge-marine"><span class="bd">🐠</span><span class="bl">Marine alert</span></div><span class="cp-badge-desc">Active NWS marine or surf zone warning</span></div></div></div>
+</div>
+<div class="cp-card" style="max-width:520px;margin:20px auto;text-align:center;padding:28px 24px;"><style>.formkit-form[data-uid="1f4e99c79d"] {  background:transparent!important;border:none!important;  box-shadow:none!important;padding:0!important;margin:0!important;}.formkit-form[data-uid="1f4e99c79d"] .formkit-submit {  background:#00BBD5!important;border-radius:8px!important;  font-weight:700!important;}.formkit-form[data-uid="1f4e99c79d"] input[data-element="email"] {  border-radius:8px!important;border:1px solid #dde3f0!important;  font-family:inherit!important;}</style><div style="font-size:26px;margin-bottom:8px;">📬</div><h3 style="color:#2F56B6;margin:0 0 6px;font-size:18px;font-weight:700;">Get Daily Beach Conditions</h3><p style="color:#666;font-size:14px;margin:0 0 18px;line-height:1.5;">Free email every morning at 8 AM — rip current risk, best beach, and tides. No spam, unsubscribe anytime.</p><script async data-uid="1f4e99c79d" src="https://coastpulse.kit.com/1f4e99c79d/index.js"></script></div>
+<div class="cp-footer"><div class="cp-footer-row"><div><div><strong>CoastPulse &middot; Grand Strand</strong></div><div>Updated: June 19, 2026 at 08:55 PM ET &middot; Data: NWS Charleston &amp; NOAA &middot; <a href="https://coastpulse.net/">coastpulse.net</a></div><div>Always verify current conditions at <a href="https://weather.gov/chs" target="_blank" rel="noopener">weather.gov/chs</a> before entering the water.</div><div class="cp-footer-regions">Other reports: <a href="https://coastpulse.net/southeastern-nc/">Southeastern NC</a></div><div class="cp-footer-regions" style="margin-top:6px;"><a href="https://coastpulse.net/privacy/">Privacy Policy</a> · <a href="https://coastpulse.net/terms/">Terms of Service</a></div></div></div></div>
+</div></body></html>
