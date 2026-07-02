@@ -1,91 +1,146 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><meta name="theme-color" content="#005F6B"><title>CoastPulse — Real-Time Beach Conditions</title><meta name="description" content="Live surf, tide, rip current risk, and beach conditions for NC and SC coastal regions."><link rel="canonical" href="https://coastpulse.net/"><meta property="og:type" content="website"><meta property="og:title" content="CoastPulse — Real-Time Beach Conditions"><meta property="og:description" content="Live surf, tide, rip current risk, and beach conditions for NC and SC coastal regions."><meta property="og:url" content="https://coastpulse.net/"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="CoastPulse — Real-Time Beach Conditions"><meta name="twitter:description" content="Live surf, tide, rip current risk, and beach conditions for NC and SC coastal regions."><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://coastpulse.net/","url":"https://coastpulse.net/","name":"CoastPulse","description":"Real-time beach conditions for the Southeast Atlantic coast. Live surf, tide, and rip current risk updated 5x daily from NOAA and NWS."},{"@type":"Organization","@id":"https://coastpulse.net/#org","name":"CoastPulse","url":"https://coastpulse.net","description":"Free real-time beach conditions data for North Carolina and South Carolina beaches."}]}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><meta name="theme-color" content="#07324a"><title>CoastPulse — Real-Time Beach Conditions</title><meta name="description" content="Live surf, tide, rip current risk, and beach conditions for NC and SC coastal regions."><link rel="canonical" href="https://coastpulse.net/"><meta property="og:type" content="website"><meta property="og:title" content="CoastPulse — Real-Time Beach Conditions"><meta property="og:description" content="Live surf, tide, rip current risk, and beach conditions for NC and SC coastal regions."><meta property="og:url" content="https://coastpulse.net/"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="CoastPulse — Real-Time Beach Conditions"><meta name="twitter:description" content="Live surf, tide, rip current risk, and beach conditions for NC and SC coastal regions."><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://coastpulse.net/","url":"https://coastpulse.net/","name":"CoastPulse","description":"Real-time beach conditions for the Southeast Atlantic coast. Live surf, tide, and rip current risk updated 5x daily from NOAA and NWS."},{"@type":"Organization","@id":"https://coastpulse.net/#org","name":"CoastPulse","url":"https://coastpulse.net","description":"Free real-time beach conditions data for North Carolina and South Carolina beaches."}]}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"><style>
 :root {
-  --cp-ocean-floor:#005F6B;
-  --cp-surf-blue:#1FA5B0;
-  --cp-sand:#F2F5F9;
-  --cp-alert-amber:#E6A800;
-  --cp-text-hero:#ffffff;
-  --cp-text-amber:#3d2200;
-  --cp-text-body:#333333;
-  --hazard-low:#018C6A;
-  --hazard-low-tint:#d0f2e8;
-  --hazard-low-text:#003320;
-  --hazard-moderate:#F5A623;
-  --hazard-moderate-tint:#fdefd6;
-  --hazard-moderate-text:#3d2200;
-  --hazard-high:#C83A00;
+  --cp-navy:#07324a;
+  --cp-blue:#1d76a8;
+  --cp-ink:#102f42;
+  --cp-muted:#63727d;
+  --cp-sky:#e8f5fb;
+  --cp-sea:#dff4ed;
+  --cp-sand:#f7f1e6;
+  --cp-cream:#fffaf0;
+  --cp-amber:#c87a12;
+  --cp-amber-bg:#fff3da;
+  --cp-line:#dfe8ec;
+  --cp-shadow:0 18px 46px rgba(16,47,66,.13);
+  --cp-soft-shadow:0 8px 24px rgba(16,47,66,.08);
+  --cp-radius:22px;
+  --hazard-low:#168765;
+  --hazard-low-tint:#dff4ed;
+  --hazard-low-text:#0b3d2a;
+  --hazard-moderate:#c87a12;
+  --hazard-moderate-tint:#fff3da;
+  --hazard-moderate-text:#5a3200;
+  --hazard-high:#c0380d;
+  --hazard-high-tint:#fce8e8;
   --hazard-closed:#8C0003;
   --hazard-marine:#7A368F;
   --hazard-marine-tint:#ede0f3;
   --hazard-marine-text:#4a1f5e;
   --badge-cap-width:28px;
-  --badge-stroke:#c0bdb5;
+  --badge-stroke:#c5cfd4;
   --badge-radius:20px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px}
-body{font-family:'Nunito',Arial,sans-serif;font-size:15px;background-color:var(--cp-sand);color:var(--cp-text-body);-webkit-text-size-adjust:100%}
+body{font-family:'Nunito',Arial,sans-serif;font-size:16px;line-height:1.5;background:#f8fbfc;color:var(--cp-ink);-webkit-text-size-adjust:100%}
+.cp-page{width:100%;overflow:hidden;background:linear-gradient(180deg,#f8fbfc 0%,#fffaf0 62%,#f8fbfc 100%)}
+.entry-content .cp-page,.wp-block-html .cp-page{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
 img.emoji{display:inline!important;height:1em!important;width:1em!important;vertical-align:middle!important;max-width:none!important}
-a{color:var(--cp-surf-blue)}
-a:hover{color:var(--hazard-marine)}
+a{color:var(--cp-blue)}
+a:hover{color:var(--cp-navy)}
 
 /* ── Nav ── */
-.cp-nav{background:var(--cp-ocean-floor);color:#fff;padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.cp-nav-brand{font-family:'Poppins',Arial,sans-serif;font-size:18px;font-weight:700;letter-spacing:-0.3px;color:#fff;text-decoration:none}
-.cp-nav-brand span{color:var(--cp-surf-blue)}
-.cp-nav-links{display:flex;gap:4px;font-size:13px;flex-wrap:wrap;align-items:center}
-.cp-nav-links a{color:rgba(255,255,255,0.80);text-decoration:none;padding:4px 7px;border-radius:6px}
-.cp-nav-links a:hover{color:#fff;background:rgba(255,255,255,0.10)}
+.cp-nav{background:var(--cp-navy);color:#fff;padding:0 clamp(22px,5vw,70px);min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:28px;position:sticky;top:0;z-index:100;box-shadow:0 8px 26px rgba(7,50,74,.16)}
+.cp-nav-brand{font-family:'Poppins',Arial,sans-serif;font-size:24px;font-weight:800;letter-spacing:-.3px;color:#fff;text-decoration:none;white-space:nowrap}
+.cp-nav-brand span{color:#55c7d6}
+.cp-nav-links{display:flex;gap:8px;font-size:14px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.cp-nav-links a{color:rgba(255,255,255,.76);text-decoration:none;padding:7px 10px;border-radius:999px}
+.cp-nav-links a:hover{color:#fff;background:rgba(255,255,255,.12)}
 .cp-nav-links a.cp-nav-active{color:#fff;font-weight:700}
-.cp-nav-sep{color:rgba(255,255,255,0.25);padding:0 4px;font-size:11px;user-select:none}
+.cp-nav-sep{color:rgba(255,255,255,.25);padding:0 4px;font-size:11px;user-select:none}
 
-/* ── Alert banner ── */
-.cp-alert-banner{background:var(--cp-alert-amber);color:var(--cp-text-amber);padding:10px 20px;display:flex;align-items:flex-start;gap:12px}
-.cp-alert-banner.cp-alert-stale{background:var(--hazard-moderate-tint);color:var(--hazard-moderate-text);border-bottom:1px solid var(--hazard-moderate)}
-.cp-alert-banner.cp-alert-closure{background:var(--hazard-closed);color:#fff}
-.cp-alert-banner.cp-alert-marine{background:var(--hazard-marine-tint);color:var(--hazard-marine-text)}
+/* ── Alert banner (shown only for stale / closure / marine) ── */
+.cp-alert-banner{background:var(--cp-amber-bg);color:var(--cp-ink);padding:10px 20px;display:flex;align-items:flex-start;gap:12px;border-left:4px solid var(--cp-amber)}
+.cp-alert-banner.cp-alert-stale{background:#fef9f0;border-left-color:#e0a030;color:#4a3000}
+.cp-alert-banner.cp-alert-closure{background:var(--hazard-high);color:#fff;border-left:none}
+.cp-alert-banner.cp-alert-marine{background:var(--hazard-marine-tint);color:var(--hazard-marine-text);border-left-color:var(--hazard-marine)}
 .cp-alert-icon{font-size:18px;line-height:1.3;flex-shrink:0}
 .cp-alert-content{flex:1;min-width:0}
 .cp-alert-eyebrow{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.75;margin-bottom:2px}
 .cp-alert-main{font-size:13px;font-weight:600}
 .cp-alert-caveat{font-size:12px;margin-top:3px;opacity:.8}
-.cp-alert-tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,0.15);padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.cp-alert-tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.12);padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+
+.cp-advisory-card{background:var(--cp-amber-bg);border-color:#f1cf99;box-shadow:0 16px 34px rgba(200,122,18,.14)}
+.cp-advisory-card .cp-card-header{background:rgba(255,250,240,.72);border-bottom-color:#f1cf99}
+.cp-advisory-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;padding:7px 10px;border-radius:999px;background:rgba(200,122,18,.14);color:#8a4f08;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.cp-advisory-item{padding:4px 0;color:#52636e;font-size:16px;line-height:1.55}
+.cp-advisory-item a{font-weight:800;color:#8a4f08;text-decoration:none}
 
 /* ── Hero ── */
-.cp-hero{background:linear-gradient(rgba(0,15,25,0.58),rgba(0,30,50,0.72)),url('https://coastpulse.net/wp-content/uploads/2026/06/Wrightsville-Beach-scaled.jpeg') center/cover no-repeat;color:#fff;padding:52px 20px 36px}
-.cp-hero-eyebrow,.cp-hero-tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.80;margin-bottom:6px;color:#fff}
-.cp-hero h1{font-family:'Poppins',Arial,sans-serif;font-size:28px;font-weight:700;line-height:1.2;margin:0 0 6px;color:#fff}
-.cp-hero-sub,.cp-hero-date{font-size:14px;opacity:.88;margin-bottom:10px;color:#fff}
-.cp-hero-intro{font-size:15px;margin-bottom:10px;line-height:1.55;font-weight:600;color:#fff}
-.cp-hero-sun{font-size:13px;opacity:.8;margin-bottom:12px;color:#fff}
-.cp-county-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.cp-tab{background:rgba(255,255,255,.20);color:#fff;border-radius:20px;padding:6px 16px;font-size:12px;font-weight:700;text-decoration:none;display:inline-block;border:1px solid rgba(255,255,255,.25)}
-.cp-tab:hover{background:rgba(255,255,255,.32);color:#fff}
+.cp-hero{
+  background-image:linear-gradient(90deg,rgba(4,36,54,.78) 0%,rgba(4,36,54,.38) 45%,rgba(4,36,54,.08) 78%),linear-gradient(0deg,rgba(4,36,54,.50),rgba(4,36,54,0) 44%),url('https://coastpulse.net/wp-content/uploads/2026/06/Wrightsville-Beach-scaled.jpeg');
+  background-size:cover;background-position:center 42%;
+  min-height:560px;display:grid;align-items:end;color:#fff;padding:clamp(36px,5vw,72px) clamp(22px,5vw,70px)
+}
+.cp-hero-inner{width:min(1180px,100%);margin:0 auto}
+.cp-hero-eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.86);margin-bottom:13px}
+.cp-hero h1{font-family:'Poppins',Arial,sans-serif;font-size:clamp(42px,7vw,82px);font-weight:700;line-height:.94;letter-spacing:-.02em;margin:0 0 16px;color:#fff;max-width:760px;text-shadow:0 2px 18px rgba(0,0,0,.18)}
+.cp-hero-date{font-size:clamp(16px,2vw,21px);color:rgba(255,255,255,.88);margin-bottom:28px}
 
-/* ── County grid — 2-column on desktop ── */
-.cp-county-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+/* ── Condition tiles (hero) ── */
+.cp-condition-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 14px;max-width:1080px}
+.cp-condition-tile{min-height:118px;padding:18px;border:1px solid rgba(255,255,255,.34);border-radius:18px;background:rgba(255,255,255,.90);color:var(--cp-ink);box-shadow:0 18px 40px rgba(0,0,0,.16);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.cp-condition-tile small{display:block;margin-bottom:9px;color:var(--cp-muted);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.09em}
+.cp-condition-tile strong{display:block;font-size:30px;font-weight:800;line-height:1;color:var(--cp-navy)}
+.cp-condition-tile em{display:block;margin-top:9px;color:var(--cp-muted);font-size:14px;font-style:normal;line-height:1.35}
+.cp-condition-tile.tile-low{border-color:rgba(22,135,101,.30);background:rgba(223,244,237,.94)}
+.cp-condition-tile.tile-low small{color:#1a5c40}
+.cp-condition-tile.tile-low strong{color:var(--hazard-low)}
+.cp-condition-tile.tile-moderate{border-color:rgba(200,122,18,.30);background:rgba(255,243,218,.94)}
+.cp-condition-tile.tile-moderate strong{color:var(--hazard-moderate)}
+.cp-condition-tile.tile-high{border-color:rgba(192,56,13,.30);background:rgba(252,232,232,.94)}
+.cp-condition-tile.tile-high strong{color:var(--hazard-high)}
 
-/* ── County card header ── */
-.cp-county-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;gap:12px;border-bottom:.5px solid rgba(0,0,0,.06);border-left:4px solid transparent}
-.cp-county-header.risk-low{border-left-color:var(--hazard-low)}
-.cp-county-header.risk-moderate{border-left-color:var(--hazard-moderate)}
-.cp-county-header.risk-high{border-left-color:var(--hazard-high)}
-.cp-county-header.risk-closed{border-left-color:var(--hazard-closed)}
-.cp-county-header.risk-marine{border-left-color:var(--hazard-marine)}
-.cp-county-name{font-family:'Poppins',Arial,sans-serif;font-size:17px;font-weight:700;color:#111;line-height:1.2}
-.cp-county-beaches{font-size:11px;color:#777;margin-top:3px}
+/* ── Summary card (hero) ── */
+.cp-summary-card{max-width:760px;margin:14px 0 8px;padding:18px 20px;border-radius:18px;background:rgba(255,250,240,.94);color:#244457;font-size:18px;line-height:1.45;box-shadow:0 14px 32px rgba(0,0,0,.12)}
+
+/* ── County tabs (hero) ── */
+.cp-county-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.cp-tab{background:rgba(255,255,255,.18);color:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:800;text-decoration:none;display:inline-block;border:1px solid rgba(255,255,255,.38);backdrop-filter:blur(10px)}
+.cp-tab:hover{background:rgba(255,255,255,.28);color:#fff}
+
+/* ── County grid ── */
+.cp-county-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;align-items:stretch}
+.cp-county-grid>.cp-card{display:flex;flex-direction:column;height:100%}
+.cp-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin:0 0 18px}
+.cp-section-head h2{font-family:'Poppins',Arial,sans-serif;font-size:clamp(26px,3vw,36px);font-weight:700;line-height:1.08;color:var(--cp-ink);letter-spacing:-.02em;margin:0}
+.cp-section-head p{margin:0;color:var(--cp-muted);font-size:15px;font-weight:700;text-align:right}
+
+/* ── County card ── */
+.cp-county-hdr{min-height:158px;padding:24px 24px 18px;border-bottom:1px solid var(--cp-line);background:linear-gradient(180deg,#ffffff,#f7fbfd);display:flex;flex-direction:column;justify-content:center}
+.cp-county-name{font-family:'Poppins',Arial,sans-serif;font-size:25px;font-weight:700;color:var(--cp-blue);line-height:1.16;letter-spacing:-.02em}
+.cp-county-places{margin-top:7px;color:var(--cp-muted);font-size:14px;line-height:1.45}
+.cp-county-body{padding:20px 24px 24px;display:grid;grid-template-rows:126px 38px minmax(168px,1fr);gap:14px;flex:1}
+.cp-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0;min-height:126px}
+.cp-mini-stat{min-height:112px;padding:14px;border-radius:15px;background:var(--cp-sky);border:1px solid #c2e0f0;display:flex;flex-direction:column;justify-content:center}
+.cp-mini-stat:first-child{background:var(--cp-sea);border-color:#aed9c8}
+.cp-mini-stat small{display:block;margin-bottom:6px;color:#526d79;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.cp-mini-stat strong{font-size:22px;font-weight:800;color:var(--cp-navy);line-height:1}
+.cp-county-meta{display:flex;flex-direction:column;justify-content:center;gap:8px;min-height:38px}
+.cp-county-summary{margin:0;color:#4f6069;font-size:16px;line-height:1.55;min-height:168px}
 
 /* ── Body / cards ── */
-.cp-body{padding:16px 20px 4px;display:flex;flex-direction:column;gap:14px;max-width:1078px;margin:0 auto;width:100%}
-.cp-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px rgba(0,0,0,0.05)}
-.cp-card-header{padding:14px 16px 12px;border-bottom:.5px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px}
-.cp-card-title{font-family:'Poppins',Arial,sans-serif;font-size:16px;font-weight:700;color:var(--cp-ocean-floor)}
-.cp-card-updated{font-size:12px;color:#666}
-.cp-card-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
-.cp-row{display:flex;align-items:center;justify-content:space-between;font-size:14px;gap:12px}
-.cp-label{color:#444;flex-shrink:0}
-.cp-value{font-weight:700;color:#111;text-align:right}
-.cp-note{font-size:13px;color:#555;line-height:1.6;border-top:.5px solid rgba(0,0,0,.06);padding-top:10px;margin-top:2px}
+.cp-body{padding:clamp(30px,5vw,68px) clamp(18px,5vw,70px) 12px;display:flex;flex-direction:column;gap:22px;max-width:1180px;margin:0 auto;width:100%}
+.cp-card{background:#fff;border-radius:var(--cp-radius);overflow:hidden;box-shadow:var(--cp-shadow);border:1px solid var(--cp-line)}
+.cp-card-header{background:linear-gradient(180deg,#ffffff,#f7fbfd);padding:20px 24px 17px;border-bottom:1px solid var(--cp-line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.cp-card-title{font-family:'Poppins',Arial,sans-serif;font-size:20px;font-weight:700;color:var(--cp-navy);letter-spacing:-.01em}
+.cp-card-updated{font-size:12px;color:var(--cp-muted)}
+.cp-card-body{padding:20px 24px;display:flex;flex-direction:column;gap:12px}
+.cp-shelling-card{background:linear-gradient(135deg,#ffffff 0 54%,#eaf7fb 54%)}
+.cp-shelling-body{padding:30px;gap:18px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:stretch}
+.cp-shelling-body .cp-row{min-height:54px;padding:4px 0;font-size:17px}
+.cp-shelling-body .cp-label{font-weight:700;color:#425d6b}
+.cp-shelling-body .cp-value{font-size:18px}
+.cp-shelling-kicker{display:flex;flex-direction:column;justify-content:center;gap:10px;padding:18px;border-radius:18px;background:rgba(255,255,255,.66);border:1px solid rgba(29,118,168,.10)}
+.cp-shelling-summary{font-size:17px;line-height:1.7;color:#415766;background:rgba(255,255,255,.78);border:1px solid rgba(29,118,168,.10);border-radius:18px;padding:18px 20px;margin:0}
+.cp-shelling-spots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;grid-column:1 / -1}
+.cp-shelling-spot{padding:12px 14px;border-radius:15px;background:rgba(255,255,255,.72);border:1px solid rgba(29,118,168,.10);font-size:13px;line-height:1.35;color:#52636e}
+.cp-shelling-spot strong{display:block;color:var(--cp-navy);font-size:14px;margin-bottom:3px}
+.cp-row{display:flex;align-items:center;justify-content:space-between;font-size:15px;gap:14px}
+.cp-label{color:#526977;flex-shrink:0}
+.cp-value{font-weight:700;color:var(--cp-navy);text-align:right}
+.cp-note{font-size:14px;color:#52636e;line-height:1.6;border-top:.5px solid var(--cp-line);padding-top:10px;margin-top:2px}
 
 /* ── Badges ── */
 .cp-badge{display:inline-flex;align-items:stretch;border-radius:var(--badge-radius);overflow:hidden;font-size:12px;font-weight:600;border:1px solid var(--badge-stroke);white-space:nowrap}
@@ -102,114 +157,168 @@ a:hover{color:var(--hazard-marine)}
 .badge-marine .bd{background:var(--hazard-marine);color:#fff}
 .badge-marine .bl{background:var(--hazard-marine-tint);color:var(--hazard-marine-text)}
 
-/* ── Surf verdict inline badge ── */
+/* ── Surf verdict ── */
 .cp-surf-verdict{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle}
 .surf-calm,.surf-mild{background:var(--hazard-low-tint);color:var(--hazard-low-text)}
 .surf-mod{background:var(--hazard-moderate-tint);color:var(--hazard-moderate-text)}
 .surf-rough{background:#fce8e8;color:#6b0000}
 
-/* ── Nearby chips ── */
+/* ── Nearby chips (card body) ── */
 .cp-nearby-row{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;font-size:13px;padding-top:6px}
 .cp-nearby-chips{display:flex;flex-wrap:wrap;gap:5px;flex:1}
-.cp-nearby-chip{background:#f5f4f0;border:.5px solid rgba(0,0,0,.08);border-radius:12px;padding:3px 10px;font-size:11px;font-weight:600;color:#444;white-space:nowrap}
-.cp-nearby-mi{font-weight:400;color:#888}
+.cp-nearby-chip{background:#f2f6f8;border:.5px solid #d4dde3;border-radius:12px;padding:3px 10px;font-size:11px;font-weight:600;color:#4f6472;white-space:nowrap}
+.cp-nearby-mi{font-weight:400;color:#9aa7af}
 
-/* ── Hourly forecast scroll ── */
-.cp-hourly-scroll{display:flex;gap:0;overflow-x:auto;padding:10px 4px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+/* ── Hourly ── */
+.cp-feature-card{background:linear-gradient(135deg,#ffffff 0 64%,#eaf7fb 64%);box-shadow:var(--cp-shadow)}
+.cp-feature-card .cp-card-header{background:rgba(232,245,251,.72)}
+.cp-sand-card{background:#fffaf0}
+.cp-sand-card .cp-card-header{background:#fbf4e6}
+.cp-sea-card{background:#f2fbf8}
+.cp-sea-card .cp-card-header{background:#e4f5ef}
+.cp-two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cp-two-col>.cp-card,.cp-two-col>div{min-width:0}
+.cp-blue-card{background:#f3f9fc}
+.cp-blue-card .cp-card-header{background:#e8f5fb}
+.cp-hourly-scroll{display:flex;gap:8px;overflow-x:auto;padding:18px 20px 22px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .cp-hourly-scroll::-webkit-scrollbar{display:none}
-.cp-hourly-slot{flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px;border-radius:8px;text-align:center}
-.cp-hourly-slot:hover{background:#f5f4f0}
-.cp-hourly-time{font-size:11px;font-weight:700;color:#555}
+.cp-hourly-slot{flex:0 0 76px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:14px;text-align:center;background:rgba(255,255,255,.68);border:1px solid rgba(29,118,168,.10)}
+.cp-hourly-slot:hover{background:#f4f9fc}
+.cp-hourly-time{font-size:11px;font-weight:700;color:var(--cp-muted)}
 .cp-hourly-icon{font-size:20px;line-height:1.1}
-.cp-hourly-temp{font-size:13px;font-weight:700;color:#222}
+.cp-hourly-temp{font-size:13px;font-weight:700;color:var(--cp-navy)}
 .cp-hourly-rain{font-size:10px;font-weight:600}
 
-/* ── Tide live indicator ── */
-.cp-tide-live{display:flex;align-items:center;gap:10px;background:#f0faf8;border-bottom:.5px solid rgba(1,140,106,0.2);padding:10px 16px;font-size:13px}
-.cp-tide-live-label{color:#555;flex:1}
+/* ── Tide live ── */
+.cp-tide-live{display:flex;align-items:center;gap:10px;background:var(--cp-sky);border-bottom:1px solid #c2e0f0;padding:10px 20px;font-size:13px}
+.cp-tide-live-label{color:#526977;flex:1}
 .cp-tide-live-value{font-weight:700;color:var(--hazard-low);font-size:15px}
 .cp-tide-live-dir{font-size:12px;color:var(--hazard-low);font-weight:600}
 
 /* ── Section label ── */
-.cp-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#888;padding:0 0 4px}
+.cp-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--cp-blue);padding:0 0 6px}
 
 /* ── Forecast ── */
-.cp-forecast{display:flex;gap:8px;padding:14px;flex-wrap:wrap}
-.cp-fc-day{flex:1;min-width:110px;background:#f5f4f0;border-radius:8px;padding:10px 8px;text-align:center;border:.5px solid rgba(0,0,0,.06)}
-.cp-fc-label{font-size:11px;color:#666;margin-bottom:4px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.cp-forecast{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:20px 24px;flex-wrap:wrap}
+.cp-fc-day{background:var(--cp-sand);border-radius:16px;padding:18px 14px;text-align:center;border:1px solid rgba(0,0,0,.06)}
+.cp-fc-label{font-size:11px;color:var(--cp-blue);margin-bottom:4px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 .cp-fc-icon{font-size:22px;margin:4px 0}
-.cp-fc-temp{font-size:13px;font-weight:700;color:#222}
-.cp-fc-cond{font-size:11px;color:#555;margin-top:2px}
-.cp-fc-detail{font-size:10px;color:#888;margin-top:4px;line-height:1.4}
+.cp-fc-temp{font-size:13px;font-weight:700;color:var(--cp-navy)}
+.cp-fc-cond{font-size:11px;color:var(--cp-muted);margin-top:2px}
+.cp-fc-detail{font-size:10px;color:#8a9299;margin-top:4px;line-height:1.4}
 
 /* ── Beach day tips ── */
-.cp-tips-list{list-style:none;padding:12px 16px 14px;display:flex;flex-direction:column;gap:10px}
-.cp-tip-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.55}
+.cp-tips-list{list-style:none;padding:20px 24px 22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 18px}
+.cp-tip-item{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.55}
 .cp-tip-icon{font-size:18px;flex-shrink:0;margin-top:1px}
-.cp-tip-text{color:#444;flex:1}
+.cp-tip-text{color:#52636e;flex:1}
 
-/* ── Dogs at the Beach ── */
-.cp-dog-list{display:flex;flex-direction:column}
-.cp-dog-item{padding:12px 16px;border-bottom:.5px solid rgba(0,0,0,.06)}
-.cp-dog-item:last-of-type{border-bottom:none}
-.cp-dog-header{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.cp-dog-emoji{font-size:16px}
-.cp-dog-beach{font-weight:700;font-size:13px;color:var(--cp-ocean-floor)}
-.cp-dog-hours{font-size:12px;color:#555;margin-bottom:3px;line-height:1.4}
-.cp-dog-rules{font-size:11px;color:#888;line-height:1.4}
+/* ── Dogs ── */
+.cp-dog-list{padding:18px 22px 22px;display:flex;flex-direction:column;gap:12px}
+.cp-dog-answer{font-size:16px;line-height:1.55;color:#425d6b;background:rgba(255,255,255,.72);border:1px solid #d8e7ec;border-radius:16px;padding:16px 18px}
+.cp-dog-detail{border:1px solid #d8e7ec;border-radius:16px;background:rgba(255,255,255,.78);overflow:hidden}
+.cp-dog-detail summary{cursor:pointer;list-style:none;padding:14px 16px;display:flex;align-items:center;gap:10px;font-weight:800;color:var(--cp-navy)}
+.cp-dog-detail summary::-webkit-details-marker{display:none}
+.cp-dog-detail summary::after{content:'+';margin-left:auto;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--cp-sky);color:var(--cp-blue);font-weight:900;font-size:13px;line-height:1}
+.cp-dog-detail[open] summary::after{content:'–'}
+.cp-dog-rule-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 14px 14px}
+.cp-dog-item{border:1px solid rgba(216,231,236,.9);border-radius:13px;background:#fff;padding:11px 12px}
+.cp-dog-header{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.cp-dog-emoji{font-size:14px;flex-shrink:0}
+.cp-dog-beach{font-weight:800;font-size:13px;color:var(--cp-navy);line-height:1.15}
+.cp-dog-hours{font-size:12px;color:#526977;line-height:1.38;margin-bottom:4px}
+.cp-dog-rules{font-size:11px;color:#7a8b95;line-height:1.35}
 
 /* ── Wildlife ── */
-.cp-wildlife{display:flex;flex-direction:column;gap:10px;padding:14px 16px}
-.cp-wildlife-item{display:flex;align-items:center;gap:10px;font-size:12px}
-.cp-wildlife-emoji{font-size:18px;flex-shrink:0}
-.cp-wildlife-name{font-weight:700;color:var(--cp-ocean-floor)}
-.cp-wildlife-species{color:#555}
-.cp-wildlife-meta{color:#999;margin-left:auto;text-align:right;flex-shrink:0}
+.cp-wildlife{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:20px 24px 24px}
+.cp-wildlife-item{display:grid;grid-template-columns:auto 1fr;gap:8px 10px;align-items:center;padding:16px;border-radius:18px;background:rgba(255,255,255,.76);border:1px solid rgba(29,118,168,.13);font-size:13px;min-height:112px}
+.cp-wildlife-emoji{font-size:28px;line-height:1;grid-row:1 / span 2;flex-shrink:0}
+.cp-wildlife-name{font-weight:800;color:var(--cp-navy);font-size:16px}
+.cp-wildlife-species{color:var(--cp-muted);font-size:12px}
+.cp-wildlife-meta{grid-column:1 / -1;color:#55707d;font-size:12px;line-height:1.35;margin-left:0;text-align:left;flex-shrink:0}
+.cp-news-list{display:grid;gap:9px;padding:18px 24px 22px}
+.cp-news-item{border:1px solid rgba(29,118,168,.13);border-radius:15px;background:rgba(255,255,255,.78);overflow:hidden}
+.cp-news-item summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:center;padding:13px 15px}
+.cp-news-item summary::-webkit-details-marker{display:none}
+.cp-news-item summary::after{content:'+';grid-column:2;grid-row:1 / span 2;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--cp-sky);color:var(--cp-blue);font-weight:900;font-size:13px}
+.cp-news-item[open] summary::after{content:'–'}
+.cp-news-headline{font-weight:800;color:var(--cp-navy);font-size:15px;line-height:1.28}
+.cp-news-meta{font-size:12px;color:var(--cp-muted)}
+.cp-news-body{padding:0 15px 14px;color:#52636e;font-size:14px;line-height:1.5}
+.cp-news-body a{font-weight:800;color:var(--cp-blue);text-decoration:none}
 
 /* ── Badge gallery ── */
-.cp-badge-gallery{display:flex;flex-direction:column;gap:10px;padding:14px 16px}
+.cp-badge-gallery{display:flex;flex-direction:column;gap:10px;padding:16px 20px}
 .cp-badge-row{display:flex;align-items:center;gap:12px}
-.cp-badge-desc{font-size:12px;color:#666;flex:1}
+.cp-badge-desc{font-size:12px;color:var(--cp-muted);flex:1}
 
 /* ── Footer ── */
-.cp-footer{background:var(--cp-ocean-floor);color:rgba(255,255,255,.75);padding:18px 20px 28px;font-size:12px;line-height:1.6;margin-top:4px}
-.cp-footer-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;max-width:1078px;margin:0 auto}
-.cp-footer a{color:rgba(255,255,255,.85)}
+.cp-footer{background:var(--cp-navy);color:rgba(255,255,255,.72);padding:24px clamp(22px,5vw,70px) 36px;font-size:12px;line-height:1.6;margin-top:8px}
+.cp-footer-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;max-width:1180px;margin:0 auto}
+.cp-footer a{color:rgba(255,255,255,.82)}
 .cp-footer strong{color:#fff;font-family:'Poppins',Arial,sans-serif}
 .cp-footer-regions{display:flex;flex-direction:column;gap:4px;margin-top:8px}
 
 /* ── Hub page ── */
-.cp-hub-hero{background:var(--cp-surf-blue);color:var(--cp-text-hero);padding:32px 20px 24px;text-align:center}
+.cp-hub-hero{background:var(--cp-navy);color:#fff;padding:32px 20px 24px;text-align:center}
 .cp-hub-hero h1{font-family:'Poppins',Arial,sans-serif;font-size:26px;font-weight:700;margin-bottom:6px}
 .cp-hub-hero p{font-size:14px;opacity:.8}
-.cp-hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;padding:20px;max-width:1078px;margin:0 auto}
-.cp-hub-card{background:#fff;border-radius:12px;overflow:hidden;border:.5px solid rgba(0,0,0,0.08)}
-.cp-hub-card-header{background:var(--cp-ocean-floor);color:#fff;padding:14px 16px 12px}
+.cp-hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:20px;max-width:1078px;margin:0 auto}
+.cp-hub-card{background:#fff;border-radius:var(--cp-radius);overflow:hidden;border:1px solid var(--cp-line)}
+.cp-hub-card-header{background:var(--cp-navy);color:#fff;padding:16px 18px 14px}
 .cp-hub-card-title{font-family:'Poppins',Arial,sans-serif;font-size:17px;font-weight:700}
 .cp-hub-card-sub{font-size:11px;opacity:.7;margin-top:3px}
-.cp-hub-card-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.cp-hub-card-body{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
 .cp-hub-risks{display:flex;flex-direction:column;gap:6px}
 .cp-hub-risk-row{display:flex;align-items:center;justify-content:space-between;font-size:12px}
-.cp-hub-county{color:#555;font-weight:600}
-.cp-hub-bet{font-size:12px;color:#444;border-top:.5px solid rgba(0,0,0,.06);padding-top:9px}
-.cp-hub-bet strong{color:var(--cp-ocean-floor)}
-.cp-hub-updated{font-size:10px;color:#aaa;margin-top:2px}
-.cp-hub-cta{display:block;background:var(--cp-surf-blue);color:#fff;text-align:center;padding:10px;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:.04em;text-transform:uppercase}
-.cp-hub-cta:hover{background:var(--cp-ocean-floor);color:#fff}
-.cp-hub-coming{background:#f5f4f0;border:.5px dashed rgba(0,0,0,.12);border-radius:12px;padding:20px;text-align:center;color:#aaa;font-size:13px}
+.cp-hub-county{color:#526977;font-weight:600}
+.cp-hub-bet{font-size:12px;color:#4f6069;border-top:.5px solid var(--cp-line);padding-top:9px}
+.cp-hub-bet strong{color:var(--cp-blue)}
+.cp-hub-updated{font-size:10px;color:#aab2b8;margin-top:2px}
+.cp-hub-cta{display:block;background:var(--cp-blue);color:#fff;text-align:center;padding:12px;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:.04em;text-transform:uppercase}
+.cp-hub-cta:hover{background:var(--cp-navy);color:#fff}
+.cp-hub-coming{background:#f2f6f8;border:.5px dashed rgba(0,0,0,.12);border-radius:var(--cp-radius);padding:20px;text-align:center;color:#aab2b8;font-size:13px}
 
 /* ── Mobile ── */
-@media(max-width:600px){
+@media(max-width:760px){
+  .cp-nav-links{display:none}
+  .cp-section-head{display:block}
+  .cp-section-head p{text-align:left;margin-top:6px}
+  .cp-two-col{grid-template-columns:1fr}
+  .cp-tips-list{grid-template-columns:1fr}
+  .cp-dog-rule-grid{grid-template-columns:1fr}
+  .cp-shelling-body{grid-template-columns:1fr;padding:22px}
+  .cp-shelling-spots{grid-template-columns:1fr}
+  .cp-wildlife{grid-template-columns:1fr}
+}
+@media(max-width:680px){
   .cp-county-grid{grid-template-columns:1fr}
+  .cp-condition-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:540px){
-  .cp-nav{padding:0 14px;height:50px}
-  .cp-nav-links{gap:2px;font-size:12px}
-  .cp-nav-links a{padding:3px 5px}
-  .cp-hero{padding:36px 14px 24px}
-  .cp-hero h1{font-size:22px}
-  .cp-body{padding:12px 12px 4px;gap:10px}
+  .cp-nav{padding:0 16px;min-height:58px}
+  .cp-nav-brand{font-size:22px}
+  .cp-hero{padding:42px 20px 30px;min-height:560px;background-position:center top}
+  .cp-hero h1{font-size:40px}
+  .cp-hero-date{font-size:15px;margin-bottom:22px}
+  .cp-body{padding:28px 16px 6px;gap:18px}
   .cp-fc-day{min-width:90px}
   .cp-hub-grid{grid-template-columns:1fr;padding:12px}
+  .cp-condition-grid{gap:8px}
+  .cp-condition-tile{min-height:98px;padding:14px 16px}
+  .cp-condition-tile strong{font-size:24px}
+  .cp-summary-card{font-size:16px;padding:16px 18px}
+  .cp-two-col{grid-template-columns:1fr}
+  .cp-forecast{grid-template-columns:1fr}
+  .cp-tips-list{grid-template-columns:1fr}
+  .cp-dog-rule-grid{grid-template-columns:1fr}
+  .cp-shelling-body{grid-template-columns:1fr;padding:22px}
+  .cp-shelling-spots{grid-template-columns:1fr}
+  .cp-wildlife{grid-template-columns:1fr}
+  .cp-county-hdr{min-height:auto;padding:18px 18px 14px}
+  .cp-county-body{padding:14px 18px 16px;display:flex;flex-direction:column;gap:12px}
+  .cp-stat-row{min-height:auto}
+  .cp-mini-stat{min-height:98px}
+  .cp-county-summary{min-height:auto}
 }
-</style><script async src="https://www.googletagmanager.com/gtag/js?id=GT-TWZKSK5G"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GT-TWZKSK5G');</script></head><body><div class="cp-hub-hero"><h1>Coast<span style="color:var(--cp-surf-blue)">Pulse</span></h1><p>Real-time beach conditions for the Southeast Atlantic coast</p></div><div class="cp-nav" style="position:relative;"><a class="cp-nav-brand" href="https://coastpulse.net/">Coast<span>Pulse</span></a><div class="cp-nav-links"><a href="https://coastpulse.net/southeastern-nc/">SE NC</a><a href="https://coastpulse.net/myrtle-beach/">Myrtle Beach</a></div></div><div class="cp-hub-grid"><div class="cp-hub-card"><div class="cp-hub-card-header"><div class="cp-hub-card-title">Southeastern NC</div><div class="cp-hub-card-sub">New Hanover · Pender · Brunswick Counties</div></div><div class="cp-hub-card-body"><div class="cp-hub-risks"><div class="cp-hub-risk-row"><span class="cp-hub-county">New Hanover</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="cp-hub-risk-row"><span class="cp-hub-county">Pender</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="cp-hub-risk-row"><span class="cp-hub-county">Brunswick</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div></div><div class="cp-hub-bet">🌟 Best bet: <strong>Carolina Beach (New Hanover County)</strong></div><div class="cp-hub-updated">Updated: July 01, 2026 at 08:56 PM ET</div></div><a class="cp-hub-cta" href="https://coastpulse.net/southeastern-nc/">Full report, tides &amp; forecast →</a></div><div class="cp-hub-card"><div class="cp-hub-card-header"><div class="cp-hub-card-title">Grand Strand</div><div class="cp-hub-card-sub">Horry · Georgetown Counties</div></div><div class="cp-hub-card-body"><div class="cp-hub-risks"><div class="cp-hub-risk-row"><span class="cp-hub-county">Horry</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="cp-hub-risk-row"><span class="cp-hub-county">Georgetown</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div></div><div class="cp-hub-bet">🌟 Best bet: <strong>Horry County</strong></div><div class="cp-hub-updated">Updated: July 01, 2026 at 08:56 PM ET</div></div><a class="cp-hub-cta" href="https://coastpulse.net/myrtle-beach/">Full report, tides &amp; forecast →</a></div></div><div class="cp-card" style="max-width:520px;margin:20px auto;text-align:center;padding:28px 24px;"><style>.formkit-form[data-uid="1f4e99c79d"] {  background:transparent!important;border:none!important;  box-shadow:none!important;padding:0!important;margin:0!important;}.formkit-form[data-uid="1f4e99c79d"] .formkit-submit {  background:#00BBD5!important;border-radius:8px!important;  font-weight:700!important;}.formkit-form[data-uid="1f4e99c79d"] input[data-element="email"] {  border-radius:8px!important;border:1px solid #dde3f0!important;  font-family:inherit!important;}</style><div style="font-size:26px;margin-bottom:8px;">📬</div><h3 style="color:#2F56B6;margin:0 0 6px;font-size:18px;font-weight:700;">Get Daily Beach Conditions</h3><p style="color:#666;font-size:14px;margin:0 0 18px;line-height:1.5;">Free email every morning at 8 AM — rip current risk, best beach, and tides. No spam, unsubscribe anytime.</p><script async data-uid="1f4e99c79d" src="https://coastpulse.kit.com/1f4e99c79d/index.js"></script></div><div class="cp-footer" style="margin-top:20px;"><div class="cp-footer-row"><div><div><strong>CoastPulse</strong></div><div>Real-time beach data from NOAA &amp; NWS · coastpulse.net</div><div>Always verify conditions before entering the water.</div></div></div></div></body></html>
+</style><script async src="https://www.googletagmanager.com/gtag/js?id=GT-TWZKSK5G"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GT-TWZKSK5G');</script></head><body><div class="cp-hub-hero"><h1>Coast<span style="color:#55c7d6">Pulse</span></h1><p>Real-time beach conditions for the Southeast Atlantic coast</p></div><div class="cp-nav" style="position:relative;"><a class="cp-nav-brand" href="https://coastpulse.net/">Coast<span>Pulse</span></a><div class="cp-nav-links"><a href="https://coastpulse.net/southeastern-nc/">SE NC</a><a href="https://coastpulse.net/myrtle-beach/">Myrtle Beach</a></div></div><div class="cp-hub-grid"><div class="cp-hub-card"><div class="cp-hub-card-header"><div class="cp-hub-card-title">Southeastern NC</div><div class="cp-hub-card-sub">New Hanover · Pender · Brunswick Counties</div></div><div class="cp-hub-card-body"><div class="cp-hub-risks"><div class="cp-hub-risk-row"><span class="cp-hub-county">New Hanover</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="cp-hub-risk-row"><span class="cp-hub-county">Pender</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="cp-hub-risk-row"><span class="cp-hub-county">Brunswick</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div></div><div class="cp-hub-bet">🌟 Best bet: <strong>Carolina Beach (New Hanover County)</strong></div><div class="cp-hub-updated">Updated: July 01, 2026 at 08:56 PM ET</div></div><a class="cp-hub-cta" href="https://coastpulse.net/southeastern-nc/">Full report, tides &amp; forecast →</a></div><div class="cp-hub-card"><div class="cp-hub-card-header"><div class="cp-hub-card-title">Grand Strand</div><div class="cp-hub-card-sub">Horry · Georgetown Counties</div></div><div class="cp-hub-card-body"><div class="cp-hub-risks"><div class="cp-hub-risk-row"><span class="cp-hub-county">Horry</span><div class="cp-badge badge-low" role="img" aria-label="Rip current risk: Low risk"><span class="bd">✅</span><span class="bl">Low risk</span></div></div><div class="cp-hub-risk-row"><span class="cp-hub-county">Georgetown</span><div class="cp-badge badge-mod" role="img" aria-label="Rip current risk: Moderate risk"><span class="bd">⚠️</span><span class="bl">Moderate risk</span></div></div></div><div class="cp-hub-bet">🌟 Best bet: <strong>Horry County</strong></div><div class="cp-hub-updated">Updated: July 02, 2026 at 04:30 AM ET</div></div><a class="cp-hub-cta" href="https://coastpulse.net/myrtle-beach/">Full report, tides &amp; forecast →</a></div></div><div class="cp-card" style="max-width:520px;margin:20px auto;text-align:center;padding:28px 24px;"><style>.formkit-form[data-uid="1f4e99c79d"] {  background:transparent!important;border:none!important;  box-shadow:none!important;padding:0!important;margin:0!important;}.formkit-form[data-uid="1f4e99c79d"] .formkit-submit {  background:#00BBD5!important;border-radius:8px!important;  font-weight:700!important;}.formkit-form[data-uid="1f4e99c79d"] input[data-element="email"] {  border-radius:8px!important;border:1px solid #dde3f0!important;  font-family:inherit!important;}</style><div style="font-size:26px;margin-bottom:8px;">📬</div><h3 style="color:#2F56B6;margin:0 0 6px;font-size:18px;font-weight:700;">Get Daily Beach Conditions</h3><p style="color:#666;font-size:14px;margin:0 0 18px;line-height:1.5;">Free email every morning at 8 AM — rip current risk, best beach, and tides. No spam, unsubscribe anytime.</p><script async data-uid="1f4e99c79d" src="https://coastpulse.kit.com/1f4e99c79d/index.js"></script></div><div class="cp-footer" style="margin-top:20px;"><div class="cp-footer-row"><div><div><strong>CoastPulse</strong></div><div>Real-time beach data from NOAA &amp; NWS · coastpulse.net</div><div>Always verify conditions before entering the water.</div></div></div></div></body></html>
