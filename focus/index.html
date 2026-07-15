@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Focus — ADHD To-Do</title>
+
+<meta name="theme-color" content="#FAF6EF" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Focus" />
+<link rel="manifest" href="./manifest.json" />
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+<link rel="icon" href="./icons/icon-192.png" />
+
+<style>
+:root{
+  --bg:#FAF6EF;
+  --bg-tint: 250,246,239;
+  --text:#2B2620;
+  --text-dim:#8C8172;
+  --text-faint:#B4AA9C;
+  --card:#FFFFFF;
+  --border: rgba(43,38,32,0.09);
+  --shadow: 0 10px 30px rgba(43,38,32,0.10);
+  --shadow-sm: 0 2px 10px rgba(43,38,32,0.06);
+  --radius-lg:24px;
+  --radius-md:16px;
+  --radius-sm:12px;
+  --accent:#2B2620;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --cat-color:#9CA3AF;
+  --cat-tint:#F1F1F3;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background: radial-gradient(circle at 50% 0%, rgba(var(--cat-color-rgb,156,163,175),0.10), rgba(0,0,0,0) 55%), var(--bg);
+  color:var(--text);
+  overscroll-behavior:none;
+  transition: background 0.6s ease;
+  -webkit-font-smoothing:antialiased;
+}
+button{ font-family:inherit; }
+input,textarea,select{ font-family:inherit; }
+.app{
+  max-width:520px;
+  margin:0 auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: calc(var(--safe-top) + 14px) 18px 8px 18px;
+}
+.clock-wrap{ line-height:1.1; }
+.clock{ font-size:28px; font-weight:800; letter-spacing:-0.5px; font-variant-numeric: tabular-nums; }
+.today-date{ font-size:13px; color:var(--text-dim); font-weight:600; margin-top:1px; }
+.icon-btn{
+  width:44px; height:44px; border-radius:50%;
+  border:none; background:var(--card); box-shadow:var(--shadow-sm);
+  display:flex; align-items:center; justify-content:center;
+  font-size:19px; color:var(--text); cursor:pointer;
+}
+.icon-btn:active{ transform:scale(0.94); }
+
+/* ---------- Banner ---------- */
+.store-banner{
+  margin: 4px 16px 0 16px;
+  background: linear-gradient(135deg,#2B2620,#3d362c);
+  color:#fff;
+  border-radius:var(--radius-md);
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow: var(--shadow);
+  animation: bannerIn .35s ease;
+}
+@keyframes bannerIn{ from{ opacity:0; transform:translateY(-8px);} to{opacity:1; transform:translateY(0);} }
+.store-banner .pin{ font-size:22px; flex-shrink:0; }
+.store-banner .info{ flex:1; min-width:0; }
+.store-banner .title{ font-weight:800; font-size:15px; letter-spacing:0.2px; }
+.store-banner .sub{ font-size:12px; opacity:0.75; margin-top:1px; }
+.store-banner .actions{ display:flex; flex-direction:column; gap:4px; align-items:flex-end; }
+.store-banner button.link{
+  background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:11px; font-weight:700;
+  padding:5px 9px; border-radius:8px; cursor:pointer;
+}
+
+/* ---------- Progress bar ---------- */
+.progress-wrap{ margin:14px 18px 0 18px; }
+.progress-label{ display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:var(--text-dim); margin-bottom:6px; }
+.progress-track{ height:8px; border-radius:8px; background:rgba(43,38,32,0.08); overflow:hidden; }
+.progress-fill{ height:100%; border-radius:8px; background: linear-gradient(90deg,#22C55E,#0EA5A0); transition: width .5s ease; }
+
+/* ---------- Focus view ---------- */
+.focus-view{ flex:1; display:flex; flex-direction:column; padding-bottom: 130px; }
+.card-zone{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 18px 18px 6px 18px;
+  position:relative;
+  min-height: 360px;
+}
+.focus-card{
+  width:100%;
+  background:var(--card);
+  border-radius:var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding:28px 24px 26px 24px;
+  position:relative;
+  touch-action:pan-y;
+  user-select:none;
+  border: 1px solid var(--border);
+}
+.focus-card .swipe-hint{
+  position:absolute; top:22px; font-size:13px; font-weight:800; letter-spacing:1.5px; opacity:0; transition:opacity .1s;
+  padding:5px 10px; border-radius:8px;
+}
+.swipe-hint.done{ right:22px; color:#16A34A; background:#DCFCE7; }
+.swipe-hint.skip{ left:22px; color:#B45309; background:#FEF3C7; }
+
+.focus-cat{
+  display:inline-flex; align-items:center; gap:6px;
+  background: var(--cat-tint); color:var(--cat-color);
+  font-weight:800; font-size:13px; padding:6px 12px; border-radius:20px;
+  margin-bottom:16px;
+}
+.focus-title{ font-size:clamp(26px,7vw,34px); font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin:0 0 10px 0; word-break:break-word; }
+.focus-note{ font-size:15px; color:var(--text-dim); line-height:1.4; margin:0 0 16px 0; }
+.focus-meta{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+.pill{
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:12.5px; font-weight:700; padding:6px 10px; border-radius:20px;
+  background:rgba(43,38,32,0.06); color:var(--text-dim);
+}
+.pill.urgency-high{ background:#FFE9E8; color:#D9271E; }
+.pill.urgency-medium{ background:#FFF3DE; color:#B45309; }
+.pill.urgency-low{ background:#EAF2FF; color:#2563EB; }
+.pill.due-overdue{ background:#FFE9E8; color:#D9271E; }
+.pill.due-today{ background:#DCFCE7; color:#15803D; }
+.empty-focus{
+  width:100%; text-align:center; padding:50px 24px; background:var(--card);
+  border-radius:var(--radius-lg); box-shadow:var(--shadow); border:1px solid var(--border);
+}
+.empty-focus .big{ font-size:44px; margin-bottom:10px; }
+.empty-focus h3{ margin:0 0 6px 0; font-size:19px; }
+.empty-focus p{ margin:0; color:var(--text-dim); font-size:14px; }
+
+.action-row{ display:flex; gap:12px; padding: 4px 18px 0 18px; }
+.action-btn{
+  flex:1; border:none; border-radius:18px; padding:16px 10px; font-size:16px; font-weight:800;
+  display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; min-height:44px;
+  box-shadow: var(--shadow-sm);
+}
+.action-btn:active{ transform:scale(0.97); }
+.action-btn.skip{ background:#F2ECDF; color:#6B5F4A; }
+.action-btn.done{ background:#1E9E5A; color:#fff; }
+
+.bring-back{
+  display:flex; justify-content:center; margin-top:10px;
+}
+.bring-back button{
+  background:none; border:none; color:var(--text-dim); font-size:13px; font-weight:700;
+  padding:8px; cursor:pointer; text-decoration:underline;
+}
+
+.upnext{ padding: 16px 18px 0 18px; }
+.upnext-label{ font-size:12px; font-weight:800; letter-spacing:1px; color:var(--text-faint); text-transform:uppercase; margin-bottom:8px; padding-left:2px; }
+.upnext-item{
+  display:flex; align-items:center; gap:10px; background:var(--card); border-radius:14px;
+  padding:12px 14px; margin-bottom:8px; box-shadow:var(--shadow-sm); border:1px solid var(--border); opacity:0.85;
+}
+.upnext-dot{ width:10px; height:10px; border-radius:50%; background:var(--dot,#ccc); flex-shrink:0; }
+.upnext-item .t{ font-size:14.5px; font-weight:700; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* ---------- All tasks view ---------- */
+.tasks-view{ flex:1; padding: 4px 16px 130px 16px; }
+.view-heading{ font-size:26px; font-weight:800; margin: 10px 4px 12px 4px; letter-spacing:-0.4px; }
+.cat-section{ margin-bottom:12px; border-radius:var(--radius-md); overflow:hidden; background:var(--card); box-shadow:var(--shadow-sm); border:1px solid var(--border); }
+.cat-header{
+  display:flex; align-items:center; gap:10px; padding:14px 14px; cursor:pointer; min-height:44px;
+}
+.cat-header .dot{ width:12px; height:12px; border-radius:50%; background:var(--dot); flex-shrink:0; }
+.cat-header .label{ font-weight:800; font-size:15.5px; flex:1; }
+.cat-header .count{ font-size:12.5px; font-weight:700; color:var(--text-dim); background:rgba(43,38,32,0.06); padding:3px 9px; border-radius:20px; }
+.cat-header .chev{ font-size:13px; color:var(--text-faint); transition: transform .2s; }
+.cat-header .chev.open{ transform:rotate(90deg); }
+.cat-body{ border-top:1px solid var(--border); }
+.task-row{
+  display:flex; align-items:center; gap:12px; padding:13px 14px; border-bottom:1px solid var(--border); cursor:pointer;
+}
+.task-row:last-child{ border-bottom:none; }
+.task-check{
+  width:24px; height:24px; border-radius:50%; border:2.5px solid var(--dot); flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; background:transparent; cursor:pointer;
+}
+.task-check.checked{ background:var(--dot); }
+.task-check.checked::after{ content:'✓'; color:#fff; font-size:13px; font-weight:900; }
+.task-info{ flex:1; min-width:0; }
+.task-title{ font-size:15.5px; font-weight:700; line-height:1.3; }
+.task-sub{ display:flex; gap:6px; margin-top:4px; flex-wrap:wrap; }
+.mini-pill{ font-size:11px; font-weight:700; padding:3px 7px; border-radius:8px; background:rgba(43,38,32,0.06); color:var(--text-dim); }
+.mini-pill.overdue{ background:#FFE9E8; color:#D9271E; }
+.mini-pill.today{ background:#DCFCE7; color:#15803D; }
+.empty-cat{ padding:16px 14px; color:var(--text-faint); font-size:13.5px; }
+
+/* ---------- Done view ---------- */
+.done-view{ flex:1; padding: 4px 16px 130px 16px; }
+.done-summary{ display:flex; gap:10px; margin: 4px 4px 16px 4px; }
+.done-stat{ flex:1; background:var(--card); border-radius:var(--radius-md); padding:14px; box-shadow:var(--shadow-sm); border:1px solid var(--border); text-align:center; }
+.done-stat .num{ font-size:24px; font-weight:800; }
+.done-stat .lab{ font-size:11.5px; color:var(--text-dim); font-weight:700; margin-top:2px; }
+.done-group-label{ font-size:12px; font-weight:800; letter-spacing:1px; color:var(--text-faint); text-transform:uppercase; margin: 16px 4px 8px 4px; }
+.done-row{
+  display:flex; align-items:center; gap:12px; background:var(--card); border-radius:14px; padding:12px 14px;
+  margin-bottom:8px; box-shadow:var(--shadow-sm); border:1px solid var(--border);
+}
+.done-row .dot{ width:10px; height:10px; border-radius:50%; background:var(--dot); flex-shrink:0; }
+.done-row .t{ flex:1; min-width:0; }
+.done-row .title{ font-size:14.5px; font-weight:700; text-decoration: line-through; color:var(--text-dim); }
+.done-row .time{ font-size:11.5px; color:var(--text-faint); margin-top:2px; }
+.undo-btn{ border:none; background:rgba(43,38,32,0.06); color:var(--text-dim); font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; cursor:pointer; }
+.empty-state{ text-align:center; padding:60px 20px; color:var(--text-faint); }
+.empty-state .big{ font-size:40px; margin-bottom:8px; }
+
+/* ---------- Bottom nav ---------- */
+.bottom-nav{
+  position:fixed; left:0; right:0; bottom:0; z-index:40;
+  display:flex; justify-content:center;
+}
+.bottom-nav-inner{
+  max-width:520px; width:100%; display:flex; background:rgba(250,246,239,0.88);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top:1px solid var(--border); padding: 8px 12px calc(var(--safe-bottom) + 8px) 12px;
+}
+.nav-btn{
+  flex:1; border:none; background:none; display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:8px 4px; min-height:44px; cursor:pointer; color:var(--text-faint); font-size:11px; font-weight:700;
+}
+.nav-btn .ic{ font-size:21px; }
+.nav-btn.active{ color:var(--text); }
+
+.fab{
+  position:fixed; right:calc(50% - 260px + 18px); bottom: calc(var(--safe-bottom) + 82px); z-index:41;
+  width:60px; height:60px; border-radius:50%; border:none; background:var(--accent); color:#fff;
+  font-size:28px; box-shadow: 0 8px 22px rgba(43,38,32,0.35); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+@media (max-width:556px){ .fab{ right:18px; } }
+.fab:active{ transform:scale(0.93); }
+
+/* ---------- Sheet / modal ---------- */
+.overlay{
+  position:fixed; inset:0; background:rgba(20,17,12,0.45); z-index:60;
+  display:flex; align-items:flex-end; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .25s ease;
+}
+.overlay.open{ opacity:1; pointer-events:auto; }
+.sheet{
+  width:100%; max-width:520px; background:var(--bg); border-radius:24px 24px 0 0;
+  max-height:88vh; overflow-y:auto; padding: 14px 20px calc(var(--safe-bottom) + 24px) 20px;
+  transform: translateY(100%); transition: transform .3s cubic-bezier(.32,.72,0,1);
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.25);
+}
+.overlay.open .sheet{ transform: translateY(0); }
+.sheet-handle{ width:38px; height:5px; border-radius:4px; background:var(--border); margin:2px auto 14px auto; }
+.sheet h2{ font-size:20px; margin:0 0 16px 0; font-weight:800; }
+.field-label{ font-size:12.5px; font-weight:800; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.5px; margin: 16px 0 8px 0; }
+.field-label:first-of-type{ margin-top:0; }
+input[type="text"], input[type="date"], textarea{
+  width:100%; border:1.5px solid var(--border); border-radius:14px; padding:13px 14px; font-size:16px;
+  background:var(--card); color:var(--text); outline:none;
+}
+input[type="text"]:focus, input[type="date"]:focus, textarea:focus{ border-color:var(--accent); }
+textarea{ resize:vertical; min-height:60px; }
+.chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  border:1.5px solid var(--border); background:var(--card); border-radius:20px; padding:9px 14px;
+  font-size:13.5px; font-weight:700; cursor:pointer; color:var(--text-dim); display:flex; align-items:center; gap:6px;
+  min-height:40px;
+}
+.chip.selected{ border-color: transparent; color:#fff; }
+.seg-row{ display:flex; gap:8px; }
+.seg-btn{ flex:1; border:1.5px solid var(--border); background:var(--card); border-radius:14px; padding:12px 6px; font-weight:800; font-size:13.5px; color:var(--text-dim); cursor:pointer; text-align:center; }
+.seg-btn.selected.high{ background:#FFE9E8; color:#D9271E; border-color:#FFE9E8; }
+.seg-btn.selected.medium{ background:#FFF3DE; color:#B45309; border-color:#FFF3DE; }
+.seg-btn.selected.low{ background:#EAF2FF; color:#2563EB; border-color:#EAF2FF; }
+.sheet-actions{ display:flex; gap:10px; margin-top:22px; }
+.btn{ flex:1; border:none; border-radius:16px; padding:15px; font-size:15.5px; font-weight:800; cursor:pointer; min-height:44px; }
+.btn.primary{ background:var(--accent); color:#fff; }
+.btn.primary:disabled{ opacity:0.4; }
+.btn.ghost{ background:rgba(43,38,32,0.06); color:var(--text); }
+.btn.danger{ background:#FFE9E8; color:#D9271E; }
+.details-toggle{ background:none; border:none; color:var(--text-dim); font-weight:700; font-size:13.5px; padding:10px 0; cursor:pointer; text-decoration:underline; }
+
+.store-list-item{ display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
+.store-list-item:last-child{ border-bottom:none; }
+.store-list-item .name-field{ flex:1; }
+.store-list-item input{ margin-bottom:6px; }
+.store-remove{ background:#FFE9E8; color:#D9271E; border:none; width:34px; height:34px; border-radius:50%; font-weight:900; cursor:pointer; flex-shrink:0; }
+.small-note{ font-size:12px; color:var(--text-faint); margin-top:4px; }
+.gps-btn{ background:#EAF2FF; color:#2563EB; border:none; padding:6px 10px; border-radius:8px; font-size:11.5px; font-weight:800; cursor:pointer; white-space:nowrap; }
+
+.picker-item{ display:flex; align-items:center; gap:12px; padding:15px 4px; border-bottom:1px solid var(--border); cursor:pointer; font-weight:700; font-size:15.5px; }
+.picker-item:last-child{ border-bottom:none; }
+.picker-item .dist{ margin-left:auto; font-size:12px; color:var(--text-faint); font-weight:700; }
+
+/* ---------- confetti ---------- */
+#confettiLayer{ position:fixed; inset:0; pointer-events:none; z-index:80; overflow:hidden; }
+.confetti-piece{
+  position:absolute; top:50%; left:50%; width:9px; height:14px; opacity:1;
+  animation: confettiBurst 900ms cubic-bezier(.15,.7,.4,1) forwards;
+}
+@keyframes confettiBurst{
+  0%{ transform: translate(-50%,-50%) rotate(0deg) scale(0.6); opacity:1; }
+  100%{ transform: translate(calc(-50% + var(--tx))) translateY(calc(-50% + var(--ty))) rotate(var(--rot)) scale(1); opacity:0; }
+}
+#checkBurst{
+  position:fixed; top:44%; left:50%; transform:translate(-50%,-50%) scale(0.3); z-index:81;
+  pointer-events:none; opacity:0; width:110px; height:110px;
+}
+#checkBurst.show{ animation: checkPop 650ms cubic-bezier(.2,1.4,.4,1) forwards; }
+@keyframes checkPop{
+  0%{ opacity:0; transform:translate(-50%,-50%) scale(0.3); }
+  30%{ opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+  55%{ transform:translate(-50%,-50%) scale(0.96); }
+  80%{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+  100%{ opacity:0; transform:translate(-50%,-50%) scale(1); }
+}
+.toast{
+  position:fixed; bottom:calc(var(--safe-bottom) + 96px); left:50%; transform:translateX(-50%);
+  background:#2B2620; color:#fff; padding:11px 18px; border-radius:14px; font-size:13.5px; font-weight:700;
+  z-index:90; opacity:0; pointer-events:none; transition: opacity .25s, transform .25s; box-shadow:var(--shadow);
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(-6px); }
+
+.hidden{ display:none !important; }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <div class="topbar">
+    <div class="clock-wrap">
+      <div class="clock" id="clock">--:--</div>
+      <div class="today-date" id="todayDate">—</div>
+    </div>
+    <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙️</button>
+  </div>
+
+  <div id="bannerSlot"></div>
+
+  <div id="viewSlot"></div>
+
+</div>
+
+<button class="fab" id="fabAdd" aria-label="Add task">+</button>
+
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="nav-btn" data-view="focus"><span class="ic">🎯</span>Focus</button>
+    <button class="nav-btn" data-view="tasks"><span class="ic">📋</span>All Tasks</button>
+    <button class="nav-btn" data-view="done"><span class="ic">✅</span>Done</button>
+  </div>
+</div>
+
+<!-- Add / Edit Task Sheet -->
+<div class="overlay" id="taskOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h2 id="taskSheetTitle">New Task</h2>
+    <input type="hidden" id="taskId" />
+
+    <div class="field-label">What do you need to do?</div>
+    <input type="text" id="taskTitle" placeholder="e.g. Call the dentist" maxlength="120" />
+
+    <div class="field-label">Category</div>
+    <div class="chip-row" id="categoryChips"></div>
+
+    <div class="field-label">Urgency</div>
+    <div class="seg-row" id="urgencySeg">
+      <button type="button" class="seg-btn low" data-urgency="low">Low</button>
+      <button type="button" class="seg-btn medium" data-urgency="medium">Medium</button>
+      <button type="button" class="seg-btn high" data-urgency="high">High</button>
+    </div>
+
+    <button type="button" class="details-toggle" id="detailsToggle">+ Add note, due date & location</button>
+
+    <div id="extraFields" class="hidden">
+      <div class="field-label">Note (optional)</div>
+      <textarea id="taskNote" placeholder="Any extra detail…" maxlength="300"></textarea>
+
+      <div class="field-label">Due date (optional)</div>
+      <input type="date" id="taskDue" />
+
+      <div class="field-label">Location tags (optional)</div>
+      <div class="chip-row" id="locationChips"></div>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn ghost hidden" id="deleteTaskBtn">Delete</button>
+      <button class="btn primary" id="saveTaskBtn" disabled>Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Sheet -->
+<div class="overlay" id="settingsOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h2>Settings</h2>
+
+    <div class="field-label">My Stores</div>
+    <div class="small-note">Tag tasks to a store. Add lat/lng manually, or stand in the store and tap "Use here" to capture GPS automatically.</div>
+    <div id="storeListEditor" style="margin-top:10px;"></div>
+    <button class="btn ghost" id="addStoreBtn" style="margin-top:6px;">+ Add store</button>
+
+    <div class="field-label">Location detection</div>
+    <div class="small-note" id="geoStatusNote">Checking permission…</div>
+    <button class="btn ghost" id="enableGeoBtn" style="margin-top:10px;">Enable GPS detection</button>
+
+    <div class="field-label">Data</div>
+    <button class="btn danger" id="resetDataBtn">Reset all app data</button>
+
+    <div class="sheet-actions">
+      <button class="btn primary" id="closeSettingsBtn">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- "I'm at" store picker Sheet -->
+<div class="overlay" id="pickerOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h2>Where are you?</h2>
+    <div class="small-note" style="margin-bottom:10px;">GPS not precise enough? Set your location manually.</div>
+    <div id="pickerList"></div>
+    <div class="sheet-actions">
+      <button class="btn ghost" id="clearManualBtn">Clear / use GPS</button>
+      <button class="btn primary" id="closePickerBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="confettiLayer"></div>
+<svg id="checkBurst" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#1E9E5A"/>
+  <path d="M30 52 L44 66 L72 36" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ===================== Data ===================== */
+const STORAGE_KEY = "focusTodoData.v1";
+
+const CATEGORIES = [
+  { id:"urgent",   label:"Urgent",         emoji:"🔥", color:"#FF3B30", tint:"#FFECEB" },
+  { id:"errands",  label:"Errands",        emoji:"🚗", color:"#0EA5A0", tint:"#E4FBF8" },
+  { id:"home",     label:"Home",           emoji:"🏠", color:"#F5A623", tint:"#FFF3DE" },
+  { id:"shopping", label:"Shopping",       emoji:"🛒", color:"#A855F7", tint:"#F6ECFF" },
+  { id:"kids",     label:"Kids & Family",  emoji:"👧", color:"#EC4899", tint:"#FFE8F3" },
+  { id:"health",   label:"Health",         emoji:"🩺", color:"#22C55E", tint:"#E8FBEE" },
+  { id:"finance",  label:"Finance",        emoji:"💳", color:"#D4A017", tint:"#FFF6D9" },
+  { id:"work",     label:"Work",           emoji:"💼", color:"#3B82F6", tint:"#EAF2FF" },
+  { id:"brain",    label:"Brain Dump",     emoji:"💡", color:"#9CA3AF", tint:"#F1F1F3" }
+];
+const CAT_BY_ID = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
+
+const DEFAULT_STORES = [
+  { id:"walgreens",   name:"Walgreens",             address:"", lat:null, lng:null },
+  { id:"harristeeter",name:"Harris Teeter",         address:"", lat:null, lng:null },
+  { id:"target",      name:"Target",                address:"", lat:null, lng:null },
+  { id:"samsclub",    name:"Sam's Club",            address:"", lat:null, lng:null },
+  { id:"dicks",       name:"Dick's Sporting Goods", address:"", lat:null, lng:null },
+  { id:"publix",      name:"Publix",                address:"", lat:null, lng:null },
+  { id:"costco",      name:"Costco",                address:"", lat:null, lng:null },
+  { id:"homegoods",   name:"HomeGoods",             address:"", lat:null, lng:null },
+  { id:"goodwill",    name:"Goodwill",              address:"", lat:null, lng:null },
+  { id:"floordecor",  name:"Floor & Decor",         address:"", lat:null, lng:null }
+];
+
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+function todayISO(d){ const x = d || new Date(); const y=x.getFullYear(), m=String(x.getMonth()+1).padStart(2,'0'), day=String(x.getDate()).padStart(2,'0'); return `${y}-${m}-${day}`; }
+function nextFridayISO(){
+  const d = new Date(); const day = d.getDay();
+  const add = (5 - day + 7) % 7;
+  d.setDate(d.getDate() + add);
+  return todayISO(d);
+}
+
+function seedTasks(){
+  const t = todayISO();
+  const fri = nextFridayISO();
+  return [
+    { id:uid(), title:"Cancel Adobe Stock trial", note:"", category:"urgent", urgency:"high", locations:[], due:t, status:"active", createdAt:Date.now()-6, completedAt:null },
+    { id:uid(), title:"Clean out refrigerator", note:"", category:"home", urgency:"medium", locations:[], due:fri, status:"active", createdAt:Date.now()-5, completedAt:null },
+    { id:uid(), title:"Walgreens pickup", note:"", category:"errands", urgency:"medium", locations:["walgreens"], due:null, status:"active", createdAt:Date.now()-4, completedAt:null },
+    { id:uid(), title:"Nature Valley Granola Bars", note:"", category:"shopping", urgency:"low", locations:["samsclub"], due:null, status:"active", createdAt:Date.now()-3, completedAt:null },
+    { id:uid(), title:"Figure out Brayden's MyChart", note:"", category:"kids", urgency:"high", locations:[], due:null, status:"active", createdAt:Date.now()-2, completedAt:null },
+    { id:uid(), title:"Create Sunny 103.7 social content", note:"", category:"work", urgency:"medium", locations:[], due:null, status:"active", createdAt:Date.now()-1, completedAt:null }
+  ];
+}
+
+let state = loadState();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      parsed.stores = parsed.stores && parsed.stores.length ? parsed.stores : DEFAULT_STORES.slice();
+      parsed.tasks = parsed.tasks || [];
+      parsed.queue = parsed.queue || [];
+      parsed.collapsedCats = parsed.collapsedCats || { brain:true };
+      parsed.manualStoreId = parsed.manualStoreId ?? null;
+      parsed.storeFilterOn = parsed.storeFilterOn !== false;
+      parsed.geoEnabled = !!parsed.geoEnabled;
+      parsed.locationPromptShown = !!parsed.locationPromptShown;
+      return parsed;
+    }
+  }catch(e){}
+  return {
+    tasks: seedTasks(),
+    stores: DEFAULT_STORES.slice(),
+    queue: [],
+    collapsedCats: { brain:true },
+    manualStoreId: null,
+    storeFilterOn: true,
+    geoEnabled: false,
+    locationPromptShown: false
+  };
+}
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+/* ===================== Utility ===================== */
+function haversineMiles(lat1, lon1, lat2, lon2){
+  const toRad = d => d * Math.PI/180;
+  const R = 3958.8;
+  const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function dueInfo(dateStr){
+  if(!dateStr) return null;
+  const now = new Date(); now.setHours(0,0,0,0);
+  const d = new Date(dateStr + "T00:00:00");
+  const diffDays = Math.round((d - now) / 86400000);
+  let label;
+  if(diffDays < 0) label = `${Math.abs(diffDays)}d overdue`;
+  else if(diffDays === 0) label = "Today";
+  else if(diffDays === 1) label = "Tomorrow";
+  else if(diffDays < 7) label = d.toLocaleDateString(undefined,{weekday:"short"});
+  else label = d.toLocaleDateString(undefined,{month:"short", day:"numeric"});
+  return { label, overdue: diffDays < 0, today: diffDays === 0, diffDays };
+}
+
+function priorityScore(t){
+  const urgencyRank = { high:0, medium:1, low:2 }[t.urgency] ?? 1;
+  let dueRank = 3;
+  if(t.due){
+    const info = dueInfo(t.due);
+    if(info.overdue || info.today) dueRank = 0;
+    else if(info.diffDays <= 2) dueRank = 1;
+    else dueRank = 2;
+  }
+  return urgencyRank * 10 + dueRank;
+}
+
+function activeTasks(){ return state.tasks.filter(t => t.status === "active"); }
+function doneTasks(){ return state.tasks.filter(t => t.status === "done").sort((a,b)=> (b.completedAt||0)-(a.completedAt||0)); }
+
+function baseOrder(pool){
+  return pool.slice().sort((a,b)=>{
+    const s = priorityScore(a) - priorityScore(b);
+    if(s !== 0) return s;
+    return a.createdAt - b.createdAt;
+  }).map(t => t.id);
+}
+
+/* ===================== Location ===================== */
+let watchId = null;
+let lastCoords = null;
+
+function nearestAutoStore(){
+  if(!lastCoords) return null;
+  let best = null, bestDist = Infinity;
+  state.stores.forEach(s => {
+    if(s.lat == null || s.lng == null) return;
+    const d = haversineMiles(lastCoords.lat, lastCoords.lng, s.lat, s.lng);
+    if(d < bestDist){ bestDist = d; best = s; }
+  });
+  if(best && bestDist <= 0.5) return best.id;
+  return null;
+}
+
+function activeStoreId(){
+  if(state.manualStoreId) return state.manualStoreId;
+  return nearestAutoStore();
+}
+
+function startGeoWatch(){
+  if(!("geolocation" in navigator)) return;
+  if(watchId != null) return;
+  watchId = navigator.geolocation.watchPosition(
+    pos => {
+      lastCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      state.geoEnabled = true;
+      saveState();
+      render();
+    },
+    err => { /* silent — manual "I'm at" remains available */ },
+    { enableHighAccuracy:true, maximumAge:15000, timeout:20000 }
+  );
+}
+
+/* ===================== Queue management ===================== */
+function currentPool(){
+  let pool = activeTasks();
+  const sid = activeStoreId();
+  if(sid && state.storeFilterOn){
+    pool = pool.filter(t => (t.locations||[]).includes(sid));
+  }
+  return pool;
+}
+
+function syncQueue(){
+  const pool = currentPool();
+  const poolSet = new Set(pool.map(t => t.id));
+  // keep already-queued ids in their existing order (this is what preserves skip-to-back)
+  const existing = state.queue.filter(id => poolSet.has(id));
+  const existingSet = new Set(existing);
+  // any task not yet in the queue (new, edited into the pool, or filter just changed) is
+  // appended in priority order rather than reshuffling positions the user already saw
+  const fresh = baseOrder(pool).filter(id => !existingSet.has(id));
+  state.queue = existing.concat(fresh);
+}
+
+function resetQueueToPriority(){
+  state.queue = baseOrder(currentPool());
+  saveState();
+}
+
+/* ===================== Rendering shell ===================== */
+let ui = { view: "focus" };
+const els = {};
+["viewSlot","bannerSlot"].forEach(id => els[id] = document.getElementById(id));
+
+function setView(v){ ui.view = v; render(); }
+
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=> setView(btn.dataset.view));
+});
+
+function render(){
+  syncQueue();
+  renderNav();
+  renderBanner();
+  renderBgTint();
+  if(ui.view === "focus") renderFocus();
+  else if(ui.view === "tasks") renderTasks();
+  else renderDone();
+}
+
+function renderNav(){
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.toggle("active", btn.dataset.view === ui.view);
+  });
+}
+
+function renderBgTint(){
+  const pool = currentPool();
+  let cat = null;
+  if(ui.view === "focus" && state.queue.length){
+    const t = state.tasks.find(x=>x.id===state.queue[0]);
+    if(t) cat = CAT_BY_ID[t.category];
+  }
+  if(!cat) cat = null;
+  const rgb = cat ? hexToRgb(cat.color) : "156,163,175";
+  document.body.style.setProperty("--cat-color-rgb", rgb);
+}
+function hexToRgb(hex){
+  const h = hex.replace("#","");
+  const r = parseInt(h.substring(0,2),16), g = parseInt(h.substring(2,4),16), b = parseInt(h.substring(4,6),16);
+  return `${r},${g},${b}`;
+}
+
+/* ---------- Banner ---------- */
+function renderBanner(){
+  const sid = activeStoreId();
+  if(!sid){ els.bannerSlot.innerHTML = ""; return; }
+  const store = state.stores.find(s=>s.id===sid);
+  if(!store){ els.bannerSlot.innerHTML = ""; return; }
+  const count = activeTasks().filter(t => (t.locations||[]).includes(sid)).length;
+  const isManual = state.manualStoreId === sid;
+  els.bannerSlot.innerHTML = `
+    <div class="store-banner">
+      <div class="pin">📍</div>
+      <div class="info">
+        <div class="title">YOU'RE AT ${escapeHtml(store.name.toUpperCase())}</div>
+        <div class="sub">${count} task${count===1?"":"s"} tagged here${isManual ? " · manual" : ""}</div>
+      </div>
+      <div class="actions">
+        <button class="link" id="bannerFilterToggle">${state.storeFilterOn ? "Show all tasks" : "Filter to store"}</button>
+        <button class="link" id="bannerLeave">Leave</button>
+      </div>
+    </div>`;
+  document.getElementById("bannerFilterToggle").onclick = ()=>{
+    state.storeFilterOn = !state.storeFilterOn;
+    saveState(); render();
+  };
+  document.getElementById("bannerLeave").onclick = ()=>{
+    state.manualStoreId = null;
+    saveState(); render();
+  };
+}
+
+/* ---------- Focus view ---------- */
+function renderFocus(){
+  const doneToday = state.tasks.filter(t=> t.status==="done" && t.completedAt && todayISO(new Date(t.completedAt)) === todayISO()).length;
+  const remaining = currentPool().length;
+  const totalToday = doneToday + remaining;
+  const pct = totalToday ? Math.round((doneToday/totalToday)*100) : 0;
+
+  const q = state.queue;
+  let cardHtml, actionsHtml = "", upnextHtml = "";
+
+  if(q.length === 0){
+    cardHtml = `
+      <div class="empty-focus">
+        <div class="big">🎉</div>
+        <h3>${remaining===0 && state.storeFilterOn && activeStoreId() ? "Nothing tagged here" : "All clear!"}</h3>
+        <p>${remaining===0 && state.storeFilterOn && activeStoreId() ? "No tasks tagged for this store right now." : "You've cleared your queue. Add something new or take a breather."}</p>
+      </div>`;
+  }else{
+    const cur = state.tasks.find(t=>t.id===q[0]);
+    const cat = CAT_BY_ID[cur.category];
+    const di = dueInfo(cur.due);
+    cardHtml = `
+      <div class="focus-card" id="focusCard" style="--cat-color:${cat.color}; --cat-tint:${cat.tint};">
+        <div class="swipe-hint done">DONE</div>
+        <div class="swipe-hint skip">NOT NOW</div>
+        <div class="focus-cat">${cat.emoji} ${cat.label}</div>
+        <h1 class="focus-title">${escapeHtml(cur.title)}</h1>
+        ${cur.note ? `<p class="focus-note">${escapeHtml(cur.note)}</p>` : ""}
+        <div class="focus-meta">
+          <span class="pill urgency-${cur.urgency}">${cur.urgency === "high" ? "🔴 High" : cur.urgency==="medium" ? "🟡 Medium" : "🔵 Low"}</span>
+          ${di ? `<span class="pill ${di.overdue?"due-overdue":di.today?"due-today":""}">📅 ${di.label}</span>` : ""}
+          ${(cur.locations||[]).map(lid=>{
+            const s = state.stores.find(x=>x.id===lid);
+            return s ? `<span class="pill">📍 ${escapeHtml(s.name)}</span>` : "";
+          }).join("")}
+        </div>
+      </div>`;
+    actionsHtml = `
+      <div class="action-row">
+        <button class="action-btn skip" id="notNowBtn">✕ Not Now</button>
+        <button class="action-btn done" id="doneBtn">✓ Done</button>
+      </div>`;
+    const upnextIds = q.slice(1,3);
+    if(upnextIds.length){
+      upnextHtml = `<div class="upnext"><div class="upnext-label">Up next</div>` +
+        upnextIds.map(id=>{
+          const t = state.tasks.find(x=>x.id===id);
+          const c = CAT_BY_ID[t.category];
+          return `<div class="upnext-item"><span class="upnext-dot" style="--dot:${c.color}"></span><span class="t">${escapeHtml(t.title)}</span></div>`;
+        }).join("") + `</div>`;
+    }
+  }
+
+  const hasSkipped = state.queue.length > 1 && state.queue.join(",") !== baseOrder(currentPool()).join(",");
+  const skippedNote = hasSkipped ? `<div class="bring-back"><button id="bringBackBtn">↺ Bring back skipped</button></div>` : "";
+
+  els.viewSlot.innerHTML = `
+    <div class="focus-view">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Today's progress</span><span>${doneToday}/${totalToday} · ${pct}%</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="card-zone">${cardHtml}</div>
+      ${actionsHtml}
+      ${skippedNote}
+      ${upnextHtml}
+    </div>`;
+
+  if(q.length){
+    attachSwipe();
+    document.getElementById("doneBtn").onclick = ()=> completeCurrentTask();
+    document.getElementById("notNowBtn").onclick = ()=> skipCurrentTask();
+  }
+  const bb = document.getElementById("bringBackBtn");
+  if(bb) bb.onclick = ()=>{ resetQueueToPriority(); render(); toast("Skipped tasks brought back"); };
+}
+
+function completeCurrentTask(fromSwipe){
+  const id = state.queue[0];
+  if(!id) return;
+  const t = state.tasks.find(x=>x.id===id);
+  t.status = "done";
+  t.completedAt = Date.now();
+  state.queue.shift();
+  saveState();
+  celebrate();
+  if(navigator.vibrate) navigator.vibrate(12);
+  render();
+}
+function skipCurrentTask(){
+  const id = state.queue.shift();
+  if(!id) return;
+  state.queue.push(id);
+  saveState();
+  if(navigator.vibrate) navigator.vibrate(6);
+  render();
+}
+
+function attachSwipe(){
+  const card = document.getElementById("focusCard");
+  if(!card) return;
+  let startX=0, startY=0, dx=0, dragging=false, pointerId=null;
+  const doneHint = card.querySelector(".swipe-hint.done");
+  const skipHint = card.querySelector(".swipe-hint.skip");
+
+  card.addEventListener("pointerdown", e=>{
+    dragging = true; startX = e.clientX; startY = e.clientY; dx = 0; pointerId = e.pointerId;
+    card.setPointerCapture(pointerId);
+    card.style.transition = "none";
+  });
+  card.addEventListener("pointermove", e=>{
+    if(!dragging) return;
+    dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if(Math.abs(dy) > Math.abs(dx) * 1.4) return;
+    card.style.transform = `translateX(${dx}px) rotate(${dx/22}deg)`;
+    doneHint.style.opacity = Math.min(1, Math.max(0, dx/80));
+    skipHint.style.opacity = Math.min(1, Math.max(0, -dx/80));
+  });
+  function endDrag(){
+    if(!dragging) return;
+    dragging = false;
+    card.style.transition = "transform .28s cubic-bezier(.2,.8,.3,1)";
+    const threshold = Math.min(120, card.offsetWidth * 0.28);
+    if(dx > threshold){
+      card.style.transform = `translateX(140%) rotate(18deg)`;
+      setTimeout(()=> completeCurrentTask(true), 180);
+    }else if(dx < -threshold){
+      card.style.transform = `translateX(-140%) rotate(-18deg)`;
+      setTimeout(()=> skipCurrentTask(), 180);
+    }else{
+      card.style.transform = "translateX(0) rotate(0)";
+      doneHint.style.opacity = 0; skipHint.style.opacity = 0;
+    }
+  }
+  card.addEventListener("pointerup", endDrag);
+  card.addEventListener("pointercancel", endDrag);
+}
+
+/* ---------- All tasks view ---------- */
+function renderTasks(){
+  const sid = activeStoreId();
+  const filtering = sid && state.storeFilterOn;
+  const pool = filtering ? state.tasks.filter(t=> t.status==="active" && (t.locations||[]).includes(sid)) : activeTasks();
+
+  let html = `<div class="tasks-view"><div class="view-heading">All Tasks</div>`;
+  CATEGORIES.forEach(cat=>{
+    const items = pool.filter(t=>t.category===cat.id).sort((a,b)=>priorityScore(a)-priorityScore(b));
+    if(filtering && items.length===0) return;
+    const collapsed = !!state.collapsedCats[cat.id];
+    html += `
+      <div class="cat-section">
+        <div class="cat-header" data-cat="${cat.id}">
+          <span class="dot" style="--dot:${cat.color}"></span>
+          <span class="label">${cat.emoji} ${cat.label}</span>
+          <span class="count">${items.length}</span>
+          <span class="chev ${collapsed?"":"open"}">▶</span>
+        </div>
+        <div class="cat-body ${collapsed?"hidden":""}">
+          ${items.length===0 ? `<div class="empty-cat">No tasks here.</div>` : items.map(t=>taskRowHtml(t, cat)).join("")}
+        </div>
+      </div>`;
+  });
+  html += `</div>`;
+  els.viewSlot.innerHTML = html;
+
+  document.querySelectorAll(".cat-header").forEach(h=>{
+    h.addEventListener("click", ()=>{
+      const c = h.dataset.cat;
+      state.collapsedCats[c] = !state.collapsedCats[c];
+      saveState(); renderTasks();
+    });
+  });
+  document.querySelectorAll(".task-check").forEach(el=>{
+    el.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      toggleTaskDone(el.dataset.id);
+    });
+  });
+  document.querySelectorAll(".task-row").forEach(el=>{
+    el.addEventListener("click", ()=> openEditTask(el.dataset.id));
+  });
+}
+function taskRowHtml(t, cat){
+  const di = dueInfo(t.due);
+  return `
+    <div class="task-row" data-id="${t.id}">
+      <span class="task-check" data-id="${t.id}" style="--dot:${cat.color}"></span>
+      <div class="task-info">
+        <div class="task-title">${escapeHtml(t.title)}</div>
+        <div class="task-sub">
+          ${di ? `<span class="mini-pill ${di.overdue?"overdue":di.today?"today":""}">${di.label}</span>` : ""}
+          ${t.urgency==="high" ? `<span class="mini-pill">🔴 High</span>` : ""}
+          ${(t.locations||[]).map(lid=>{ const s=state.stores.find(x=>x.id===lid); return s?`<span class="mini-pill">📍 ${escapeHtml(s.name)}</span>`:""; }).join("")}
+        </div>
+      </div>
+    </div>`;
+}
+function toggleTaskDone(id){
+  const t = state.tasks.find(x=>x.id===id);
+  if(!t) return;
+  if(t.status==="active"){
+    t.status="done"; t.completedAt=Date.now();
+    celebrate();
+  }else{
+    t.status="active"; t.completedAt=null;
+  }
+  saveState(); render();
+}
+
+/* ---------- Done view ---------- */
+function renderDone(){
+  const list = doneTasks();
+  const today = list.filter(t=> todayISO(new Date(t.completedAt)) === todayISO());
+  const earlier = list.filter(t=> todayISO(new Date(t.completedAt)) !== todayISO());
+  const totalAllTime = list.length;
+
+  let html = `<div class="done-view"><div class="view-heading">Done</div>
+    <div class="done-summary">
+      <div class="done-stat"><div class="num">${today.length}</div><div class="lab">TODAY</div></div>
+      <div class="done-stat"><div class="num">${totalAllTime}</div><div class="lab">ALL TIME</div></div>
+    </div>`;
+
+  if(list.length===0){
+    html += `<div class="empty-state"><div class="big">🌤️</div>Nothing completed yet.<br/>Finish a task in Focus mode to see it here.</div>`;
+  }else{
+    if(today.length){
+      html += `<div class="done-group-label">Today</div>` + today.map(doneRowHtml).join("");
+    }
+    if(earlier.length){
+      html += `<div class="done-group-label">Earlier</div>` + earlier.map(doneRowHtml).join("");
+    }
+  }
+  html += `</div>`;
+  els.viewSlot.innerHTML = html;
+
+  document.querySelectorAll(".undo-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const t = state.tasks.find(x=>x.id===btn.dataset.id);
+      t.status="active"; t.completedAt=null;
+      saveState(); render();
+      toast("Moved back to active");
+    });
+  });
+}
+function doneRowHtml(t){
+  const cat = CAT_BY_ID[t.category];
+  const time = new Date(t.completedAt).toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
+  return `
+    <div class="done-row">
+      <span class="dot" style="--dot:${cat.color}"></span>
+      <div class="t"><div class="title">${escapeHtml(t.title)}</div><div class="time">${cat.emoji} ${cat.label} · ${time}</div></div>
+      <button class="undo-btn" data-id="${t.id}">Undo</button>
+    </div>`;
+}
+
+/* ===================== Celebration FX ===================== */
+function celebrate(){
+  const layer = document.getElementById("confettiLayer");
+  const colors = CATEGORIES.map(c=>c.color);
+  for(let i=0;i<26;i++){
+    const p = document.createElement("div");
+    p.className = "confetti-piece";
+    const angle = Math.random()*Math.PI*2;
+    const dist = 90 + Math.random()*160;
+    p.style.setProperty("--tx", `${Math.cos(angle)*dist}px`);
+    p.style.setProperty("--ty", `${Math.sin(angle)*dist - 40}px`);
+    p.style.setProperty("--rot", `${(Math.random()*720-360)}deg`);
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.borderRadius = Math.random()>0.5 ? "50%" : "3px";
+    layer.appendChild(p);
+    setTimeout(()=> p.remove(), 950);
+  }
+  const check = document.getElementById("checkBurst");
+  check.classList.remove("show"); void check.offsetWidth;
+  check.classList.add("show");
+  setTimeout(()=> check.classList.remove("show"), 700);
+}
+
+let toastTimer = null;
+function toast(msg){
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> el.classList.remove("show"), 1800);
+}
+
+function escapeHtml(s){
+  return String(s||"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+/* ===================== Clock ===================== */
+function tickClock(){
+  const now = new Date();
+  document.getElementById("clock").textContent = now.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
+  document.getElementById("todayDate").textContent = now.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
+}
+tickClock();
+setInterval(tickClock, 1000*15);
+
+/* ===================== Add / Edit Task Sheet ===================== */
+const taskOverlay = document.getElementById("taskOverlay");
+let editingId = null;
+let formCategory = null;
+let formUrgency = "medium";
+let formLocations = [];
+
+function openAddTask(){
+  editingId = null;
+  formCategory = null; formUrgency = "medium"; formLocations = [];
+  document.getElementById("taskSheetTitle").textContent = "New Task";
+  document.getElementById("taskTitle").value = "";
+  document.getElementById("taskNote").value = "";
+  document.getElementById("taskDue").value = "";
+  document.getElementById("extraFields").classList.add("hidden");
+  document.getElementById("detailsToggle").textContent = "+ Add note, due date & location";
+  document.getElementById("deleteTaskBtn").classList.add("hidden");
+  buildCategoryChips(); buildUrgencySeg(); buildLocationChips();
+  updateSaveEnabled();
+  openOverlay(taskOverlay);
+  setTimeout(()=> document.getElementById("taskTitle").focus(), 260);
+}
+function openEditTask(id){
+  const t = state.tasks.find(x=>x.id===id);
+  if(!t) return;
+  editingId = id;
+  formCategory = t.category; formUrgency = t.urgency; formLocations = (t.locations||[]).slice();
+  document.getElementById("taskSheetTitle").textContent = "Edit Task";
+  document.getElementById("taskTitle").value = t.title;
+  document.getElementById("taskNote").value = t.note || "";
+  document.getElementById("taskDue").value = t.due || "";
+  document.getElementById("extraFields").classList.remove("hidden");
+  document.getElementById("detailsToggle").textContent = "− Hide details";
+  document.getElementById("deleteTaskBtn").classList.remove("hidden");
+  buildCategoryChips(); buildUrgencySeg(); buildLocationChips();
+  updateSaveEnabled();
+  openOverlay(taskOverlay);
+}
+function buildCategoryChips(){
+  const wrap = document.getElementById("categoryChips");
+  wrap.innerHTML = CATEGORIES.map(c=>`<button type="button" class="chip ${formCategory===c.id?"selected":""}" data-cat="${c.id}" style="${formCategory===c.id?`background:${c.color};border-color:${c.color};`:""}">${c.emoji} ${c.label}</button>`).join("");
+  wrap.querySelectorAll(".chip").forEach(ch=>{
+    ch.addEventListener("click", ()=>{ formCategory = ch.dataset.cat; buildCategoryChips(); updateSaveEnabled(); });
+  });
+}
+function buildUrgencySeg(){
+  document.querySelectorAll("#urgencySeg .seg-btn").forEach(b=>{
+    b.classList.toggle("selected", b.dataset.urgency === formUrgency);
+    b.onclick = ()=>{ formUrgency = b.dataset.urgency; buildUrgencySeg(); };
+  });
+}
+function buildLocationChips(){
+  const wrap = document.getElementById("locationChips");
+  wrap.innerHTML = state.stores.map(s=>`<button type="button" class="chip ${formLocations.includes(s.id)?"selected":""}" data-loc="${s.id}" style="${formLocations.includes(s.id)?"background:#2B2620;border-color:#2B2620;":""}">📍 ${escapeHtml(s.name)}</button>`).join("");
+  wrap.querySelectorAll(".chip").forEach(ch=>{
+    ch.addEventListener("click", ()=>{
+      const id = ch.dataset.loc;
+      formLocations = formLocations.includes(id) ? formLocations.filter(x=>x!==id) : [...formLocations, id];
+      buildLocationChips();
+    });
+  });
+}
+function updateSaveEnabled(){
+  document.getElementById("saveTaskBtn").disabled = document.getElementById("taskTitle").value.trim().length===0;
+}
+document.getElementById("taskTitle").addEventListener("input", updateSaveEnabled);
+document.getElementById("detailsToggle").addEventListener("click", ()=>{
+  const ex = document.getElementById("extraFields");
+  const collapsedNow = ex.classList.contains("hidden");
+  ex.classList.toggle("hidden");
+  document.getElementById("detailsToggle").textContent = collapsedNow ? "− Hide details" : "+ Add note, due date & location";
+});
+document.getElementById("saveTaskBtn").addEventListener("click", ()=>{
+  const title = document.getElementById("taskTitle").value.trim();
+  if(!title) return;
+  const note = document.getElementById("taskNote").value.trim();
+  const due = document.getElementById("taskDue").value || null;
+  const category = formCategory || "brain";
+  if(editingId){
+    const t = state.tasks.find(x=>x.id===editingId);
+    Object.assign(t, { title, note, category, urgency:formUrgency, locations:formLocations, due });
+  }else{
+    state.tasks.push({ id:uid(), title, note, category, urgency:formUrgency, locations:formLocations, due, status:"active", createdAt:Date.now(), completedAt:null });
+  }
+  saveState();
+  closeOverlay(taskOverlay);
+  render();
+  toast(editingId ? "Task updated" : "Task added");
+});
+document.getElementById("deleteTaskBtn").addEventListener("click", ()=>{
+  if(!editingId) return;
+  state.tasks = state.tasks.filter(t=>t.id!==editingId);
+  saveState();
+  closeOverlay(taskOverlay);
+  render();
+  toast("Task deleted");
+});
+document.getElementById("fabAdd").addEventListener("click", openAddTask);
+
+/* ===================== Settings Sheet ===================== */
+const settingsOverlay = document.getElementById("settingsOverlay");
+document.getElementById("settingsBtn").addEventListener("click", ()=>{
+  renderStoreEditor();
+  updateGeoStatus();
+  openOverlay(settingsOverlay);
+});
+document.getElementById("closeSettingsBtn").addEventListener("click", ()=> closeOverlay(settingsOverlay));
+
+function renderStoreEditor(){
+  const wrap = document.getElementById("storeListEditor");
+  wrap.innerHTML = state.stores.map(s=>`
+    <div class="store-list-item" data-id="${s.id}">
+      <div class="name-field">
+        <input type="text" class="store-name" value="${escapeHtml(s.name)}" placeholder="Store name" />
+        <div style="display:flex; gap:6px; align-items:center;">
+          <input type="text" class="store-address" value="${escapeHtml(s.address||"")}" placeholder="Address (optional)" style="flex:1;" />
+          <button type="button" class="gps-btn" data-id="${s.id}">Use here</button>
+        </div>
+        <div class="small-note">${s.lat!=null ? `📍 ${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}` : "No GPS coordinates set"}</div>
+      </div>
+      <button type="button" class="store-remove" data-id="${s.id}">×</button>
+    </div>`).join("");
+
+  wrap.querySelectorAll(".store-name").forEach(inp=>{
+    inp.addEventListener("change", ()=>{
+      const id = inp.closest(".store-list-item").dataset.id;
+      state.stores.find(s=>s.id===id).name = inp.value.trim() || "Untitled";
+      saveState(); render();
+    });
+  });
+  wrap.querySelectorAll(".store-address").forEach(inp=>{
+    inp.addEventListener("change", ()=>{
+      const id = inp.closest(".store-list-item").dataset.id;
+      state.stores.find(s=>s.id===id).address = inp.value.trim();
+      saveState();
+    });
+  });
+  wrap.querySelectorAll(".gps-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      if(!("geolocation" in navigator)){ toast("Geolocation not available"); return; }
+      btn.textContent = "…";
+      navigator.geolocation.getCurrentPosition(pos=>{
+        const s = state.stores.find(x=>x.id===btn.dataset.id);
+        s.lat = pos.coords.latitude; s.lng = pos.coords.longitude;
+        saveState(); renderStoreEditor(); render();
+        toast(`Saved location for ${s.name}`);
+      }, ()=>{ btn.textContent="Use here"; toast("Couldn't get location"); }, { enableHighAccuracy:true, timeout:15000 });
+    });
+  });
+  wrap.querySelectorAll(".store-remove").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      state.stores = state.stores.filter(s=>s.id!==btn.dataset.id);
+      state.tasks.forEach(t=> t.locations = (t.locations||[]).filter(l=>l!==btn.dataset.id));
+      if(state.manualStoreId === btn.dataset.id) state.manualStoreId = null;
+      saveState(); renderStoreEditor(); render();
+    });
+  });
+}
+document.getElementById("addStoreBtn").addEventListener("click", ()=>{
+  const name = prompt("Store name?");
+  if(!name) return;
+  state.stores.push({ id: uid(), name: name.trim(), address:"", lat:null, lng:null });
+  saveState(); renderStoreEditor();
+});
+document.getElementById("resetDataBtn").addEventListener("click", ()=>{
+  if(!confirm("This will erase all tasks and stores and restore the sample data. Continue?")) return;
+  state = { tasks: seedTasks(), stores: DEFAULT_STORES.slice(), queue: [], collapsedCats:{brain:true}, manualStoreId:null, storeFilterOn:true, geoEnabled:false, locationPromptShown:false };
+  saveState();
+  closeOverlay(settingsOverlay);
+  render();
+  toast("App data reset");
+});
+function updateGeoStatus(){
+  const note = document.getElementById("geoStatusNote");
+  const btn = document.getElementById("enableGeoBtn");
+  if(!("geolocation" in navigator)){
+    note.textContent = "Geolocation isn't supported in this browser.";
+    btn.classList.add("hidden");
+    return;
+  }
+  if(state.geoEnabled && watchId != null){
+    note.textContent = "GPS detection is on — the app checks your distance to each store automatically.";
+    btn.textContent = "GPS detection is on";
+    btn.disabled = true;
+  }else{
+    note.textContent = "Allow location access so the app can auto-detect when you're near a store.";
+    btn.textContent = "Enable GPS detection";
+    btn.disabled = false;
+  }
+}
+document.getElementById("enableGeoBtn").addEventListener("click", ()=>{
+  startGeoWatch();
+  state.geoEnabled = true;
+  saveState();
+  setTimeout(updateGeoStatus, 400);
+});
+
+/* ===================== "I'm at" Picker ===================== */
+const pickerOverlay = document.getElementById("pickerOverlay");
+function openPicker(){
+  const wrap = document.getElementById("pickerList");
+  wrap.innerHTML = state.stores.map(s=>{
+    let dist = "";
+    if(lastCoords && s.lat != null){
+      dist = haversineMiles(lastCoords.lat, lastCoords.lng, s.lat, s.lng).toFixed(1) + " mi";
+    }
+    return `<div class="picker-item" data-id="${s.id}"><span>📍</span><span>${escapeHtml(s.name)}</span><span class="dist">${dist}</span></div>`;
+  }).join("");
+  wrap.querySelectorAll(".picker-item").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      state.manualStoreId = el.dataset.id;
+      saveState();
+      closeOverlay(pickerOverlay);
+      render();
+      toast(`Set location to ${state.stores.find(s=>s.id===el.dataset.id).name}`);
+    });
+  });
+  openOverlay(pickerOverlay);
+}
+document.getElementById("clearManualBtn").addEventListener("click", ()=>{
+  state.manualStoreId = null;
+  saveState();
+  closeOverlay(pickerOverlay);
+  render();
+});
+document.getElementById("closePickerBtn").addEventListener("click", ()=> closeOverlay(pickerOverlay));
+
+/* Visible "I'm at" affordance near the clock for discoverability */
+(function addWhereBtn(){
+  const wrap = document.querySelector(".clock-wrap");
+  const b = document.createElement("button");
+  b.textContent = "📍 I'm at…";
+  b.style.cssText = "margin-top:6px;border:none;background:rgba(43,38,32,0.07);color:#6B5F4A;font-size:11.5px;font-weight:800;padding:5px 10px;border-radius:10px;cursor:pointer;";
+  b.addEventListener("click", openPicker);
+  wrap.appendChild(b);
+})();
+
+/* ===================== Overlay helpers ===================== */
+function openOverlay(el){ el.classList.add("open"); document.body.style.overflow="hidden"; }
+function closeOverlay(el){ el.classList.remove("open"); document.body.style.overflow=""; }
+[taskOverlay, settingsOverlay, pickerOverlay].forEach(ov=>{
+  ov.addEventListener("click", e=>{ if(e.target === ov) closeOverlay(ov); });
+});
+
+/* ===================== First-run location prompt ===================== */
+function maybePromptLocation(){
+  if(state.locationPromptShown) return;
+  state.locationPromptShown = true;
+  saveState();
+  setTimeout(()=>{
+    if(confirm("Focus works best with location access — it can tell you when you're at Walgreens, Target, and your other regular stores.\n\nAllow location access?")){
+      startGeoWatch();
+      state.geoEnabled = true; saveState();
+    }
+  }, 400);
+}
+
+/* ===================== Service worker ===================== */
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  });
+}
+
+/* ===================== Init ===================== */
+render();
+if(state.geoEnabled) startGeoWatch();
+maybePromptLocation();
+
+})();
+</script>
+</body>
+</html>
